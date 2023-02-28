@@ -1,1 +1,9 @@
 @import "~bootstrap/scss/bootstrap";
+@font-face {
+    font-family: 'Coolgumz';
+    src: local('Coolgumz'), url(../fonts/Coolgumz.ttf) format('truetype');
+}
+body {
+    background: linear-gradient(55deg,#8CADDB, #AE8CDB);
+}
+.test { font-family: 'Coolgumz'}
