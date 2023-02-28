@@ -29,4 +29,4 @@ yarn-error.log
 .idea/
 /.idea
 .env
-
+.env.dev
