@@ -6,7 +6,7 @@ use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
+// use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -15,9 +15,9 @@ class LoginController extends AbstractController
 {
     public function __construct(
         private readonly AuthenticationUtils $authenticationUtils,
-        private readonly Utilisateur $utilisateur,
+        // private readonly Utilisateur $utilisateur,
         private readonly EntityManagerInterface $entityManager,
-        private readonly Request $request
+        // private readonly Request $request
     )
     {
     }
@@ -39,9 +39,9 @@ class LoginController extends AbstractController
     #[Route('/register', name: 'app_register')]
     public function register(): Response
     {
-        $user = new $this->utilisateur();
+        // $user = new $this->utilisateur();
 
-        $this->request->get
+        // $this->request->get
 
         $error = $this->authenticationUtils->getLastAuthenticationError();
         $lastUsername = $this->authenticationUtils->getLastUsername();
