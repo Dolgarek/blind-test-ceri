@@ -14,7 +14,7 @@ export default function (props) {
                 <div className='welcomeText'>Bienvenue {props.username} !</div>
                 <div className='introductionText'>Blindtest est le meilleur endroit pour tester vos connaissances musicales en ligne !
                     Jouez avec vos propres musiques ou avec celles de notre sélection de blindtests amusants et stimulants.</div>
-                <div className='positionButtonCenter'>
+                <div clasFsName='positionButtonCenter'>
                     <Button variant="mybtn" size="xxl">Nouvelle partie</Button>
                 </div>
                 <div className='positionButtonCenter'>
