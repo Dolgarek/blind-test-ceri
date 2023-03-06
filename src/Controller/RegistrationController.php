@@ -17,7 +17,7 @@ class RegistrationController extends AbstractController
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
-        if (count($this->getUser()->getRoles()) > 0) {
+        if ($this->getUser() != null) {
             return $this->redirectToRoute('app_accueil');
         }
 
