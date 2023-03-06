@@ -5,7 +5,7 @@ export default function EditProfileModal(props) {
     const [editMode, setEditMode] = useState(false);
     const [firstName, setFirstName] = useState("Jonathan");
     const [lastName, setLastName] = useState("Zephir");
-    const [username, setUsername] = useState("JoJo");
+    const [username] = useState("JoJo");
     const [email, setEmail] = useState("jojoZeph@gmai.com");
     const [password, setPassword] = useState("password123");
     
@@ -20,7 +20,6 @@ export default function EditProfileModal(props) {
     const handleCancelButtonClick = () => {
         setFirstName("Jonathan");
         setLastName("Zephir");
-        setUsername("JoJo");
         setEmail("jojoZeph@gmail.com");
         setPassword("password123");
         setEditMode(false);
@@ -45,7 +44,7 @@ export default function EditProfileModal(props) {
                 <Form.Group controlId="formUsername" className='form-group-sm'>
                     <Form.Label className='profileLabelText'>Nom d'utilisateur :</Form.Label>
                     <Form.Control type="text" placeholder="Entrez votre nom d'utilisateur" name="username" value={username}
-                        plaintext={!editMode} readOnly={!editMode} onChange={(event)=>{setUsername(event.target.value);}} className="form-control-sm"/>
+                        plaintext readOnly className="form-control-sm"/>
                 </Form.Group>
                 <Form.Group controlId="formEmail" className='form-group-sm'>
                     <Form.Label className='profileLabelText'>Adresse e-mail :</Form.Label>
