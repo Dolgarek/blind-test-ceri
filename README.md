@@ -38,6 +38,10 @@ Il suffit d'utilliser la commande composer requiere suivi du nom du paquet
 composer requiere symfony/ux-react
 ```
 
+## Modification structurelle obligatoire
+
+Afin de pouvoir uploader des fichiers il vous faudra créer les dossiers ```uploads/avatars/``` à la racine du dossier ```public/``` soit: ```public/uploads/avatars``` 
+
 ## Lancer le serveur de développement
 
 Afin de lancer le serveur de développement il vous faudra deux terminaux dont le répertoire courant est celui du projet.
