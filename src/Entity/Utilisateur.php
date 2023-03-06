@@ -22,7 +22,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180, unique: true)]
     private ?string $username = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'simple_array')]
     private array $roles = [];
 
     /**
@@ -54,6 +54,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: MusiqueImporte::class)]
     private Collection $musiqueImportes;
+
+    #[ORM\Column(type: 'string')]
+    private $avatarFileName = null;
 
     public function __construct()
     {
@@ -95,9 +98,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
         return array_unique($roles);
     }
 
@@ -285,6 +285,18 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
                 $musiqueImporte->setUtilisateur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAvatarFileName()
+    {
+        return $this->avatarFileName;
+    }
+
+    public function setAvatarFileName($avatarFileName)
+    {
+        $this->avatarFileName = $avatarFileName;
 
         return $this;
     }

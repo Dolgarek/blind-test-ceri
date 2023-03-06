@@ -6,6 +6,8 @@ use App\Entity\Utilisateur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
 
 class UtilisateurType extends AbstractType
 {
@@ -21,7 +23,21 @@ class UtilisateurType extends AbstractType
             ->add('accordUtilisateur')
             ->add('connexion')
             ->add('parties')
-        ;
+            ->add('avatar', FileType::class, [
+                'label' => 'Avatar(.jpg .png .jpeg)',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '10240k',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid Image document',
+                    ])
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
