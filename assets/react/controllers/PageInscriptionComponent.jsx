@@ -28,6 +28,11 @@ function RegistrationForm() {
   }
 
   return (
+
+    <div className='imageBackgroundLogin'>
+
+      <div className='welcomeText'>Blindtest !</div>
+
     <form onSubmit={handleSubmit}>
       <div>
         <label htmlFor="name">Nom:</label>
@@ -72,6 +77,7 @@ function RegistrationForm() {
       <button type="submit">S'inscrire</button>
 
     </form>
+    </div>
   );
 }
 
