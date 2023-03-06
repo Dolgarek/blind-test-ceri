@@ -36,22 +36,6 @@ class LoginController extends AbstractController
         ]);
     }
 
-    #[Route('/register', name: 'app_register')]
-    public function register(): Response
-    {
-        // $user = new $this->utilisateur();
-
-        // $this->request->get
-
-        $error = $this->authenticationUtils->getLastAuthenticationError();
-        $lastUsername = $this->authenticationUtils->getLastUsername();
-        return $this->render('login/index.html.twig', [
-            'controller_name' => 'LoginController',
-            'error' => $error,
-            'last_username' => $lastUsername
-        ]);
-    }
-
     #[Route('/logout', name: 'app_logout', methods: ['GET'])]
     public function logout()
     {
