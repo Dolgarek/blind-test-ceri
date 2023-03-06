@@ -43,17 +43,7 @@ body {
   }
   
 
-  .imageBackgroundLogin{
-
-    .loginCard{
-    display: block;
-    position: absolute;
-    width: 50%;
-    height: 50%;}
-
-
-
-  }
+ 
 .containerAccueil{
     position: relative;
     margin: 1em auto; max-width: 800px; width: 100%;
@@ -211,3 +201,20 @@ body {
   }
   
 
+.loginCard{
+    position: relative;
+ 
+   text-align: center;
+   display: inline;
+   justify-content: center;
+   align-items: center;
+   margin-left: 50%;
+   margin-right: 50%;
+   
+}
+
+.mx-auto{
+  margin-left: 50%;
+  margin-right: 50%;
+
+}

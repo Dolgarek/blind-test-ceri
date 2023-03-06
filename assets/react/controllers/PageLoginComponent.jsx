@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Card from 'react-bootstrap/Card';
 
 function LoginForm() {
   const [username, setUsername] = useState('');
@@ -11,11 +12,15 @@ function LoginForm() {
 
   return (
     <div className='imageBackgroundLogin'>
-
+    
       <div className='welcomeText'>Blindtest !</div>
           
 
       <div className='loginCard'>
+
+      <Card className='mx-auto'>
+        <Card.Body>
+          <Card.Title> Connexion</Card.Title>
       <form onSubmit={handleSubmit}>
 
       <div>
@@ -25,8 +30,7 @@ function LoginForm() {
       </div>
       <div>
       <label htmlFor="password">Mot de passe:</label>
-      <input
-        type="password"
+      <input type="password"
         id="password"
         value={password}
         onChange={(event) => setPassword(event.target.value)}
@@ -38,6 +42,10 @@ function LoginForm() {
       <button type="submit">S'inscrire</button>
       </div>
     </form>
+    </Card.Body>
+    </Card>
+    
+
     </div>
     </div>
   );
