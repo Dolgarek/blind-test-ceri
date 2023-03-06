@@ -40,8 +40,10 @@ security:
     # - { path: ^/profile, roles: ROLE_USER }
     - { path: "^/login", roles: PUBLIC_ACCESS }
     - { path: "^/register", roles: PUBLIC_ACCESS }
-    - { path: "^/utilisateur/{id}", roles: ROLE_USER}
-    - { path: "^/utilisateur/{id}/edit", roles: ROLE_USER}
+    - { path: "^/utilisateur/api/me", roles: ROLE_USER}
+    - { path: "^/utilisateur/api/me/edit", roles: ROLE_USER}
+    - { path: "^/utilisateur/api/get/{id}", roles: ROLE_ADMIN}
+    - { path: "^/utilisateur/api/edit/{id}", roles: ROLE_ADMIN}
     - { path: "^/utilisateur/", roles: ROLE_ADMIN }
     - { path: "^/", roles: ROLE_USER }
 
