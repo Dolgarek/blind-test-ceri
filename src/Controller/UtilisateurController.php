@@ -6,6 +6,7 @@ use App\Entity\Utilisateur;
 use App\Form\UtilisateurType;
 use App\Repository\UtilisateurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -46,6 +47,22 @@ class UtilisateurController extends AbstractController
         return $this->render('utilisateur/show.html.twig', [
             'utilisateur' => $utilisateur,
         ]);
+    }
+
+    #[Route('/api/{id}', name: 'app_api_utilisateur_show', methods: ['GET'])]
+    public function apiShow(int $id, Utilisateur $utilisateur, UtilisateurRepository $utilisateurRepository): JsonResponse
+    {
+        $user = $utilisateurRepository->find($id);
+        $jsonArr = [
+            'nom' => $user->getNom(),
+            'prenom' => $user->getPrenom(),
+            'username' => $user->getUsername(),
+        ];
+
+        if ($this->getUser()->getUserIdentifier() != $utilisateur->getUserIdentifier() || !in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
+            return new JsonResponse([], 401);
+        }
+        return new JsonResponse(['utilisateur' => json_encode($jsonArr)], 200);
     }
 
     #[Route('/{id}/edit', name: 'app_utilisateur_edit', methods: ['GET', 'POST'])]
