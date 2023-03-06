@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
+import { Button, Form } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
+import { BrowserRouter as Link } from 'react-router-dom';
+
 
 function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Vérifiez les informations de connexion ici
-  };
+  const handleConnexionButtonClick = () => {
+};
+
 
   return (
     <div className='imageBackgroundLogin'>
@@ -20,29 +22,28 @@ function LoginForm() {
 
       <Card className='mx-auto'>
         <Card.Body>
-          <Card.Title> Connexion</Card.Title>
-      <form onSubmit={handleSubmit}>
+        <Card.Header className='loginText text-center'> Connexion</Card.Header>
+       <Form>
+       <Form.Group controlId="formUsername" className='form-group-sm'>
+                    <Form.Label className='loginLabelText'>Nom d'utilisateur :</Form.Label>
+                    <Form.Control type="text" placeholder="Entrez votre nom d'utilisateur" name="username" value={username}
+                         onChange={(event)=>{setUsername(event.target.value);}} className="form-control"/>
+       </Form.Group>
+       <Form.Group controlId="formPassword" className='form-group-sm'>
+                    <Form.Label className='loginLabelText'>Mot de passe :</Form.Label>
+                    <Form.Control type="password" placeholder="Entrez votre mot de passe" name="password" value={password}
+                        onChange={(event)=>{setPassword(event.target.value);}} className="form-control"/>
+       </Form.Group>
+    
 
-      <div>
-      <label htmlFor="username">Nom d'utilisateur:</label>
-      <input type="text" id="username"value={username} onChange={(event) => setUsername(event.target.value)}
-      />
-      </div>
-      <div>
-      <label htmlFor="password">Mot de passe:</label>
-      <input type="password"
-        id="password"
-        value={password}
-        onChange={(event) => setPassword(event.target.value)}
-      /></div>
-      <div>
-      <button type="submit">Se connecter</button>
-      </div>
-      <div>
-      <button type="submit">S'inscrire</button>
-      </div>
-    </form>
+      </Form>
     </Card.Body>
+    <Card.Footer>
+                <Button variant="mybtn" onClick={handleConnexionButtonClick}> Se connecter </Button>
+                <div>
+                  Vous n'êtes pas encore membre? Veuillez vous <Link to="/" >inscrire</Link>
+                </div>
+        </Card.Footer>
     </Card>
     
 
