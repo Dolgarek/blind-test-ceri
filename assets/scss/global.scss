@@ -34,6 +34,12 @@ body {
     margin: 1em auto; max-width: 800px; width: 100%;
    
 }
+
+.containerLogin{
+    position: relative;
+    margin: 1em auto; max-width: 800px; width: 100%;
+   
+}
 .welcomeText {
     font-family: 'Coolgumz';
     font-size: 55px;
@@ -155,6 +161,16 @@ body {
     align-items: center;
     padding: .5em;
 }
+
+
+.containerLogin{
+    
+   .form-group-sm{
+    align-items: center;
+    padding: .5em;
+}
+}
+
 
 .form-control-sm[readonly] {
     border-bottom: none;
