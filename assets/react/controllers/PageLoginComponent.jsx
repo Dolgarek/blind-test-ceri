@@ -24,16 +24,20 @@ function LoginForm() {
                 <Form.Control type="text" placeholder="Entrez votre nom d'utilisateur" name="username" value={username}
                   onChange={(event)=>{setUsername(event.target.value);}} className="form-control"/>
               </Form.Group>
+              <div className='passwordLabelText'>
               <Form.Group controlId="formPassword" className='form-group-sm'>
                 <Form.Label className='loginLabelText'>Mot de passe :</Form.Label>
                 <Form.Control type="password" placeholder="Entrez votre mot de passe" name="password" value={password}
                   onChange={(event)=>{setPassword(event.target.value);}} className="form-control"/>
               </Form.Group>
+              </div>
             </Form>
           </Card.Body>
           <Card.Footer>
+            <div className='mybtn-login'>
             <Button variant="mybtn" onClick={handleConnexionButtonClick}> Se connecter </Button>
-            <div>
+            </div>
+            <div className='inscriptionLabelText'>
               Vous n'êtes pas encore membre? Veuillez vous <a href="/inscription">inscrire</a>
             </div>
           </Card.Footer>

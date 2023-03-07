@@ -1,84 +1,57 @@
 import React, { useState } from 'react';
+import { Button, Form } from 'react-bootstrap';
+import Card from 'react-bootstrap/Card';
 
-function RegistrationForm() {
-  const [name, setFirstName] = useState('');
-  const [email, setEmail] = useState('');
+
+function LoginForm() {
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+ 
+  const handleInscriptionButtonClick = () => {
+};
 
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  }
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  }
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log('Nom:', name);
-    console.log('Email:', email);
-    console.log('Password:', password);
-    console.log('lastName:', password);
-    // Send data to server or do any other processing here
-  }
 
   return (
-
     <div className='imageBackgroundLogin'>
-
       <div className='welcomeText'>Blindtest !</div>
-
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="name">Nom:</label>
-        <input
-          type="text"
-          id="name"
-          value={name}
-          onChange={handleNameChange}
-          required
-        />
+      <div className='loginCard'>
+        <Card className='mx-auto'>
+          <Card.Body>
+            <Card.Header className='loginText text-center'> Inscription</Card.Header>
+            <Form>
+              <Form.Group controlId="formUsername" className='form-group-sm'>
+                <Form.Label className='loginLabelText'>Nom d'utilisateur :</Form.Label>
+                <Form.Control type="text" placeholder="Entrez votre nom d'utilisateur" name="username" value={username}
+                  onChange={(event)=>{setUsername(event.target.value);}} className="form-control"/>
+              </Form.Group>
+             <div className='passwordLabelText'>
+              <Form.Group controlId="formPassword" className='form-group-sm'>
+                <Form.Label className='loginLabelText'>Addresse Mail: </Form.Label>
+                <Form.Control type="email" placeholder="Entrez votre addresse Mail" name="email" value={email}
+                  onChange={(event)=>{setEmail(event.target.value);}} className="form-control"/>
+              </Form.Group>
+              </div>
+              <div className='passwordLabelText'>
+              <Form.Group controlId="formPassword" className='form-group-sm'>
+                <Form.Label className='loginLabelText'>Mot de passe :</Form.Label>
+                <Form.Control type="password" placeholder="Entrez votre mot de passe" name="password" value={password}
+                  onChange={(event)=>{setPassword(event.target.value);}} className="form-control"/>
+              </Form.Group>
+              </div>
+            </Form>
+          </Card.Body>
+          <Card.Footer>
+            <div className='mybtn-inscription'>
+            <Button variant="mybtn" onClick={handleInscriptionButtonClick}> S'inscrire </Button>
+            </div>
+           
+          </Card.Footer>
+        </Card>
       </div>
-      <div>
-        <label htmlFor="lastName">Prénom:</label>
-        <input
-          type="text"
-          id="lastName"
-          value={name}
-          onChange={handleNameChange}
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={handleEmailChange}
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="password">Mot de passe:</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={handlePasswordChange}
-          required
-        />
-      </div>
-      <button type="submit">S'inscrire</button>
-
-    </form>
     </div>
   );
 }
 
-export default RegistrationForm;
+export default LoginForm;
