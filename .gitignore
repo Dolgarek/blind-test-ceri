@@ -28,6 +28,8 @@ yarn-error.log
 /.env
 .idea/
 /.idea
+.env
+.env.dev
+.env.local.php
 /.env
 /.env.dev
-
