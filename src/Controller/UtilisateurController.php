@@ -63,7 +63,7 @@ class UtilisateurController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_utilisateur_show', methods: ['GET'])]
+    #[Route('/api/get/{id}', name: 'app_utilisateur_show', methods: ['GET'])]
     public function show(Utilisateur $utilisateur): Response
     {
         return $this->render('utilisateur/show.html.twig', [
@@ -71,24 +71,25 @@ class UtilisateurController extends AbstractController
         ]);
     }
 
-    #[Route('/api/{id}', name: 'app_api_utilisateur_show', methods: ['GET'])]
-    public function apiShow(int $id, Utilisateur $utilisateur, UtilisateurRepository $utilisateurRepository): JsonResponse
+    #[Route('/api/me', name: 'app_utilisateur_api_me', methods: ['GET', 'POST'])]
+    public function me(UtilisateurRepository $utilisateurRepository): Response
     {
-        $user = $utilisateurRepository->find($id);
+        $user = $utilisateurRepository->findOneBy(['username' => $this->getUser()->getUserIdentifier()]);
+        //dd($user);
         $jsonArr = [
             'nom' => $user->getNom(),
             'prenom' => $user->getPrenom(),
             'username' => $user->getUsername(),
+            'username' => $user->getUsername(),
         ];
+        $response = new Response(json_encode($jsonArr));
+        $response->headers->set('Content-Type', 'application/json');
 
-        if ($this->getUser()->getUserIdentifier() != $utilisateur->getUserIdentifier() || !in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
-            return new JsonResponse([], 401);
-        }
-        return new JsonResponse(['utilisateur' => json_encode($jsonArr)], 200);
+        return $response;
     }
 
-    #[Route('/{id}/edit', name: 'app_utilisateur_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Utilisateur $utilisateur, UtilisateurRepository $utilisateurRepository, SluggerInterface $slugger): Response
+    #[Route('/api/edit/{id}', name: 'app_utilisateur_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Utilisateur $utilisateur, UtilisateurRepository $utilisateurRepository): Response
     {
         $form = $this->createForm(UtilisateurType::class, $utilisateur);
         $form->handleRequest($request);
