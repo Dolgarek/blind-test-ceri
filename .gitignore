@@ -31,3 +31,5 @@ yarn-error.log
 .env
 .env.dev
 .env.local.php
+/.env
+/.env.dev
