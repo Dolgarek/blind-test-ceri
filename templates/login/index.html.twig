@@ -6,7 +6,15 @@
     {% if error %}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
-    <div class="container-fluid mt-3">
+    <style>
+        .example-wrapper { margin: 1em auto; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+    <div class="example-wrapper">
+        <div {{ react_component('PageLoginComponent') }}></div>
+    </div>
+    {# <div class="container-fluid mt-3">
         <div class="row">
             <div class="col-3 offset-4 p-2 border border-1 border-primary rounded">
                 <form action="{{ path('app_login') }}" method="post">
@@ -23,5 +31,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> #}
 {% endblock %}

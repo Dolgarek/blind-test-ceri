@@ -1,27 +1,29 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Modal, Button, Form } from 'react-bootstrap';
 
 export default function EditProfileModal(props) {
     const [editMode, setEditMode] = useState(false);
-    const [firstName, setFirstName] = useState("Jonathan");
-    const [lastName, setLastName] = useState("Zephir");
-    const [username] = useState("JoJo");
-    const [email, setEmail] = useState("jojoZeph@gmai.com");
-    const [password, setPassword] = useState("password123");
+    const [firstName, setFirstName] = useState(props.firstName);
+    const [lastName, setLastName] = useState(props.lastName);
+    const [username] = useState(props.username);
+    const [password, setPassword] = useState("");
     
     const handleEditButtonClick = () => {
         setEditMode(true);
     };
 
     const handleSaveButtonClick = () => {
+        axios.post("/utilisateur/api/me/edit/" + props.id, {username, lastName, firstName, password})
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
         setEditMode(false);
     };
 
     const handleCancelButtonClick = () => {
-        setFirstName("Jonathan");
-        setLastName("Zephir");
-        setEmail("jojoZeph@gmail.com");
-        setPassword("password123");
+        setFirstName(props.firstName);
+        setLastName(props.lastName);
+        setPassword("");
         setEditMode(false);
     };
   return (
@@ -45,11 +47,6 @@ export default function EditProfileModal(props) {
                     <Form.Label className='profileLabelText'>Nom d'utilisateur :</Form.Label>
                     <Form.Control type="text" placeholder="Entrez votre nom d'utilisateur" name="username" value={username}
                         plaintext readOnly className="form-control-sm"/>
-                </Form.Group>
-                <Form.Group controlId="formEmail" className='form-group-sm'>
-                    <Form.Label className='profileLabelText'>Adresse e-mail :</Form.Label>
-                    <Form.Control type="email" placeholder="Entrez votre adresse e-mail" name="email" value={email} 
-                        plaintext={!editMode} readOnly={!editMode} onChange={(event)=>{setEmail(event.target.value);}} className="form-control-sm"/>
                 </Form.Group>
                 <Form.Group controlId="formPassword" className='form-group-sm'>
                     <Form.Label className='profileLabelText'>Mot de passe :</Form.Label>

@@ -8,7 +8,7 @@ export default function (props) {
     return (
         <div className='imageBackground'>
             <div>
-                <CircleContainerForProfilePictureComponent imageUrl= {props.imageUrl}/>
+                <CircleContainerForProfilePictureComponent id={props.id} username={props.username} firstName={props.firstName} lastName={props.lastName} password={props.password} imageUrl= {props.imageUrl}/>
             </div>
             <div className='containerAccueil'>
                 <div className='welcomeText'>Bienvenue {props.username} !</div>
@@ -22,7 +22,7 @@ export default function (props) {
                 </div>
             </div>
             <div className='positionButtonDownLeft'>
-                <Button variant="mybtnDeconnexion" size="xxl">Déconnexion <FaSignOutAlt /></Button>
+                <Button href="/logout" variant="mybtnDeconnexion" size="xxl">Déconnexion <FaSignOutAlt /></Button>
             </div>
         </div>
     )
