@@ -55,7 +55,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: MusiqueImporte::class)]
     private Collection $musiqueImportes;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'string', nullable: true)]
     private $avatarFileName = null;
 
     public function __construct()

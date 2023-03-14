@@ -22,10 +22,41 @@ class RegistrationController extends AbstractController
         }
 
         $user = new Utilisateur();
-        $form = $this->createForm(RegistrationFormType::class, $user);
-        $form->handleRequest($request);
+        //$form = $this->createForm(RegistrationFormType::class, $user);
+        //$form->handleRequest($request);
+        $res = $request->request->all();
+        //dump($res,strlen($res['username']) == 0 && strlen($res['nom']) == 0 && strlen($res['prenom']) == 0 &&  strlen($res['password']) == 0 && !in_array("terms", $res));
+        //dd($res, array_key_exists("terms", $res));
+        if (!array_key_exists("terms", $res)) {
+            return $this->render('registration/register.html.twig', [
+                'error' => false
+            ]);
+        }
+        $isComplete = strlen($res['username']) > 0 && strlen($res['nom']) > 0 && strlen($res['prenom']) > 0 &&  strlen($res['password']) > 5 && $res['terms'] == "true";
+        //dump($isComplete, strlen($res['username']) > 0);
+        if ($isComplete) {
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $res["password"]
+                )
+            );
 
-        if ($form->isSubmitted() && $form->isValid()) {
+            $date = new \DateTimeImmutable();
+
+            $user->setUsername($res["username"]);
+            $user->setRoles(['ROLE_USER']);
+            $user->setNom($res["nom"]);
+            $user->setPrenom($res["prenom"]);
+            $user->setCreatedAt($date);
+            $entityManager->persist($user);
+            $entityManager->flush();
+            // do anything else you need here, like send an email
+
+            return $this->redirectToRoute('app_accueil');
+        }
+        //dd($res, $test);
+        /*if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
@@ -37,7 +68,7 @@ class RegistrationController extends AbstractController
             $date = new \DateTimeImmutable();
 
             $user->setUsername($form->get("username")->getData());
-            $user->setRoles($user->getRoles());
+            $user->setRoles(['ROLE_USER']);
             $user->setNom("default_nom");
             $user->setPrenom("default_prenom");
             $user->setCreatedAt($date);
@@ -46,10 +77,15 @@ class RegistrationController extends AbstractController
             // do anything else you need here, like send an email
 
             return $this->redirectToRoute('app_accueil');
-        }
+        }*/
+
+        /*return $this->render('registration/register.html.twig', [
+            'registrationForm' => $form->createView(),
+            'error' => !$isComplete
+        ]);*/
 
         return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
+            'error' => !$isComplete
         ]);
     }
 }

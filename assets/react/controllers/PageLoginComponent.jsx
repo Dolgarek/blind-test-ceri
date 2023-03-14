@@ -7,9 +7,6 @@ function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleConnexionButtonClick = () => {
-};
-
 
   return (
     <div className='imageBackgroundLogin'>
@@ -38,7 +35,7 @@ function LoginForm() {
           </Card.Body>
           <Card.Footer>
             <div className='inscriptionLabelText'>
-              Vous n'êtes pas encore membre? Veuillez vous <a href="/inscription">inscrire</a>
+              Vous n'êtes pas encore membre? Veuillez vous <a href="/register">inscrire</a>
             </div>
           </Card.Footer>
         </Card>
