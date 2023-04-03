@@ -58,11 +58,15 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', nullable: true)]
     private $avatarFileName = null;
 
+    #[ORM\OneToMany(mappedBy: 'createdBy', targetEntity: Ticket::class)]
+    private Collection $tickets;
+
     public function __construct()
     {
         $this->accordRGPDs = new ArrayCollection();
         $this->parties = new ArrayCollection();
         $this->musiqueImportes = new ArrayCollection();
+        $this->tickets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -297,6 +301,36 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAvatarFileName($avatarFileName)
     {
         $this->avatarFileName = $avatarFileName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ticket>
+     */
+    public function getTickets(): Collection
+    {
+        return $this->tickets;
+    }
+
+    public function addTicket(Ticket $ticket): self
+    {
+        if (!$this->tickets->contains($ticket)) {
+            $this->tickets->add($ticket);
+            $ticket->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTicket(Ticket $ticket): self
+    {
+        if ($this->tickets->removeElement($ticket)) {
+            // set the owning side to null (unless already changed)
+            if ($ticket->getCreatedBy() === $this) {
+                $ticket->setCreatedBy(null);
+            }
+        }
 
         return $this;
     }

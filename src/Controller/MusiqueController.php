@@ -52,6 +52,7 @@ class MusiqueController extends AbstractController
             $extraData['date'] = $form->get('date')->getData();
             $extraData['themes'] = $form->get('themes')->getData();
             $extraData['tags'] = $form->get('tags')->getData();
+            $extraData['timestamp'] = $form->get('tags')->getData();
             if ($extraData['themes'] != null) {
                 $themes = explode(",", $form->get('themes')->getData());
                 $extraData['themes'] = $themes;
@@ -83,6 +84,7 @@ class MusiqueController extends AbstractController
             $musiqueInfo->setDateDeSortie($extraData['date']);
 //            $musiqueInfo->setThemes($extraData['themes']);
             $musiqueInfo->setTags($extraData['tags']);
+            $musiqueInfo->setTimestamp($extraData['timestamp']);
             if ($this->getUser()->getRoles()[0] != "ROLE_ADMIN") {
                 $musique->setIsGlobal(false);
                 $musiqueImporte = new MusiqueImporte();
