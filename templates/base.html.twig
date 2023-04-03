@@ -5,6 +5,15 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% for message in app.flashes('admin_success') %}
+            <div class="alert alert-success mb-2">{{ message }}</div>
+        {% endfor %}
+        {% for message in app.flashes('admin_error') %}
+            <div class="alert alert-danger mb-2">{{ message }}</div>
+        {% endfor %}
+        {% for message in app.flashes('admin_warning') %}
+            <div class="alert alert-warning mb-2">{{ message }}</div>
+        {% endfor %}
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}

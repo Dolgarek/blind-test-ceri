@@ -28,12 +28,12 @@ class Musique
     #[ORM\Column(type: 'string')]
     private $musiqueFilename;
 
-    public function getBrochureFilename(): string
+    public function getMusiqueFilename(): string
     {
         return $this->musiqueFilename;
     }
 
-    public function setBrochureFilename(string $musiqueFilename): self
+    public function setMusiqueFilename(string $musiqueFilename): self
     {
         $this->musiqueFilename = $musiqueFilename;
 

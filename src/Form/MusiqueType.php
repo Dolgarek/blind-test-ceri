@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Musique;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -49,11 +51,23 @@ class MusiqueType extends AbstractType
                 'label' => 'Nom de l\'album',
                 'required' => false,
                 'mapped' => false,
-            ])->add('artist', TextType::class, [
+            ])->add('artiste', TextType::class, [
                 'label' => 'Nom de l\'artiste',
                 'required' => false,
                 'mapped' => false,
-                ]);
+                ])->add('date', DateType::class, [
+                'label' => 'Date de sortie',
+                'required' => false,
+                'mapped' => false,
+            ])->add('themes', TextType::class, [
+                'label' => 'Thèmes',
+                'required' => false,
+                'mapped' => false,
+            ])->add('tags', TextType::class, [
+                'label' => 'Tags',
+                'required' => false,
+                'mapped' => false,
+            ]);
 
     }
 

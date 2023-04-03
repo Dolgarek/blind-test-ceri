@@ -6,14 +6,26 @@
     <h1>Musique</h1>
 
     <table class="table">
-        <tbody>
+        <thead>
             <tr>
                 <th>Id</th>
-                <td>{{ musique.id }}</td>
-            </tr>
-            <tr>
                 <th>IsGlobal</th>
+                <th>Titre</th>
+                <th>Artiste</th>
+                <th>Groupe</th>
+                <th>Album</th>
+                <th>Date de parution</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ musique.id }}</td>
                 <td>{{ musique.isGlobal ? 'Yes' : 'No' }}</td>
+                <td>{{ musique.musiqueInfo.titre }}</td>
+                <td>{{ musique.musiqueInfo.artiste }}</td>
+                <td>{{ musique.musiqueInfo.groupe }}</td>
+                <td>{{ musique.musiqueInfo.album }}</td>
+                <td>{{ musique.musiqueInfo.dateDeSortie|date('d-m-Y') }}</td>
             </tr>
         </tbody>
     </table>
