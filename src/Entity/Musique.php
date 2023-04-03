@@ -25,6 +25,21 @@ class Musique
     #[ORM\Column]
     private ?bool $isGlobal = null;
 
+    #[ORM\Column(type: 'string')]
+    private $musiqueFilename;
+
+    public function getBrochureFilename(): string
+    {
+        return $this->musiqueFilename;
+    }
+
+    public function setBrochureFilename(string $musiqueFilename): self
+    {
+        $this->musiqueFilename = $musiqueFilename;
+
+        return $this;
+    }
+
     public function __construct()
     {
         $this->parties = new ArrayCollection();

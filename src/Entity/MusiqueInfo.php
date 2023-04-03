@@ -40,7 +40,7 @@ class MusiqueInfo
     #[ORM\OneToOne(mappedBy: 'musiqueInfo', cascade: ['persist', 'remove'])]
     private ?MusiqueImporte $musiqueImporte = null;
 
-    #[ORM\Column(type: Types::ARRAY, nullable: true)]
+    #[ORM\Column(type: 'simple_array', nullable: true)]
     private array $tags = [];
 
     public function __construct()
