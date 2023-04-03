@@ -43,6 +43,9 @@ class MusiqueInfo
     #[ORM\Column(type: 'simple_array', nullable: true)]
     private array $tags = [];
 
+    #[ORM\Column(nullable: true)]
+    private ?int $timestamp = null;
+
     public function __construct()
     {
         $this->themes = new ArrayCollection();
@@ -182,6 +185,18 @@ class MusiqueInfo
     public function setTags(?array $tags): self
     {
         $this->tags = $tags;
+
+        return $this;
+    }
+
+    public function getTimestamp(): ?int
+    {
+        return $this->timestamp;
+    }
+
+    public function setTimestamp(?int $timestamp): self
+    {
+        $this->timestamp = $timestamp;
 
         return $this;
     }
