@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 
 class MusiqueType extends AbstractType
 {
@@ -32,7 +33,7 @@ class MusiqueType extends AbstractType
                 // in the associated entity, so you can use the PHP constraint classes
                 'constraints' => [
                     new File([
-                        'maxSize' => '20480k',
+                        'maxSize' => '204800k',
                         'mimeTypes' => [
                             'audio/mpeg',
                         ],
@@ -59,6 +60,11 @@ class MusiqueType extends AbstractType
                 'label' => 'Date de sortie',
                 'required' => false,
                 'mapped' => false,
+                'widget' => 'choice',
+                'years' => range(date('Y'), date('Y') - 100),
+                'constraints' => [
+                    new LessThanOrEqual('today')
+                ]
             ])->add('themes', TextType::class, [
                 'label' => 'Thèmes',
                 'required' => false,
