@@ -282,3 +282,26 @@ body {
     padding-top: 15px;
     padding-bottom: 15px;
 }
+.timer-wrapper {
+    display: flex;
+    justify-content: center;
+    padding-top: 120px;
+    
+  }
+
+.timer {
+    font-family: 'Lato-Light';
+    font-size: 20px;
+    font-weight: 600;
+    color: #EAE5E1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-shadow: 2px 4px 4px rgba(	51, 121, 170, 0.6);
+
+
+}
+  
+.value {
+    font-size: 40px;
+}
