@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Musique;
+use App\Entity\Theme;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -65,10 +67,13 @@ class MusiqueType extends AbstractType
                 'constraints' => [
                     new LessThanOrEqual('today')
                 ]
-            ])->add('themes', TextType::class, [
+            ])->add('themes', EntityType::class, [
                 'label' => 'Thèmes',
                 'required' => false,
                 'mapped' => false,
+                'class' => Theme::class,
+                'multiple' => true,
+                'expanded' => false,
             ])->add('tags', TextType::class, [
                 'label' => 'Tags',
                 'required' => false,

@@ -9,6 +9,7 @@ use App\Form\MusiqueType;
 use App\Repository\MusiqueImporteRepository;
 use App\Repository\MusiqueRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -52,10 +53,12 @@ class MusiqueController extends AbstractController
             $extraData['date'] = $form->get('date')->getData();
             $extraData['themes'] = $form->get('themes')->getData();
             $extraData['tags'] = $form->get('tags')->getData();
-            if ($extraData['themes'] != null) {
-                $themes = explode(",", $form->get('themes')->getData());
-                $extraData['themes'] = $themes;
-            }
+//            dd($extraData['themes']);
+//            if ($extraData['themes'] != null) {
+//                $themes = explode(",", $form->get('themes')->getData());
+//                $extraData['themes'] = $themes;
+//            }
+
             if ($extraData['tags'] != null) {
                 $tags = explode(",", $form->get('tags')->getData());
                 $extraData['tags'] = $tags;
@@ -82,6 +85,9 @@ class MusiqueController extends AbstractController
             $musiqueInfo->setArtiste($extraData['artiste']);
             $musiqueInfo->setDateDeSortie($extraData['date']);
 //            $musiqueInfo->setThemes($extraData['themes']);
+            foreach ($extraData['themes'] as $theme){
+                $musiqueInfo->addTheme($theme);
+            }
             $musiqueInfo->setTags($extraData['tags']);
             if ($this->getUser()->getRoles()[0] != "ROLE_ADMIN") {
                 $musique->setIsGlobal(false);
