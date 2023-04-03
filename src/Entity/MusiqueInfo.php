@@ -40,6 +40,9 @@ class MusiqueInfo
     #[ORM\OneToOne(mappedBy: 'musiqueInfo', cascade: ['persist', 'remove'])]
     private ?MusiqueImporte $musiqueImporte = null;
 
+    #[ORM\Column(type: Types::ARRAY, nullable: true)]
+    private array $tags = [];
+
     public function __construct()
     {
         $this->themes = new ArrayCollection();
@@ -167,6 +170,18 @@ class MusiqueInfo
         }
 
         $this->musiqueImporte = $musiqueImporte;
+
+        return $this;
+    }
+
+    public function getTags(): array
+    {
+        return $this->tags;
+    }
+
+    public function setTags(?array $tags): self
+    {
+        $this->tags = $tags;
 
         return $this;
     }
