@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import { FaSignOutAlt } from 'react-icons/fa';
 import CircleContainerForProfilePictureComponent from './CircleContainerForProfilePictureComponent'
+import RGPD from './PageRGPDComponent'
 
 
 export default function (props) {
@@ -10,6 +11,11 @@ export default function (props) {
             <div>
                 <CircleContainerForProfilePictureComponent id={props.id} username={props.username} firstName={props.firstName} lastName={props.lastName} password={props.password} imageUrl= {props.imageUrl}/>
             </div>
+            <RGPD showModal={true}  onHide={() => {}}  title="RGPD Consigne">
+        
+      </RGPD>
+
+
             <div className='containerAccueil'>
                 <div className='welcomeText'>Bienvenue {props.username} !</div>
                 <div className='introductionText'>Blindtest est le meilleur endroit pour tester vos connaissances musicales en ligne !

@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Modal, Form } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
-
+import RGPD from './PageRGPDComponent';
 
 function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showModal, setShowModal] = useState(false);
+
+  const handleShowModal = () => setShowModal(true);
+  const handleHideModal = () => setShowModal(false);
 
 
   return (
@@ -28,7 +32,8 @@ function LoginForm() {
                   onChange={(event)=>{setPassword(event.target.value);}} className="form-control"/>
               </Form.Group>
                 <div className='mybtn-login'>
-                  <Button variant="mybtn" type="submit"> Se connecter </Button>
+                  <Button variant="mybtn" type="submit"  onClick={handleShowModal}> Se connecter </Button>
+                  
                 </div>
               </div>
             </Form>
