@@ -17,6 +17,7 @@ use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 
 class MusiqueType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -24,15 +25,10 @@ class MusiqueType extends AbstractType
             ->add('musique', FileType::class, [
                 'label' => 'Musique (mp3 file)',
 
-                // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
 
-                // make it optional so you don't have to re-upload the PDF file
-                // every time you edit the Product details
                 'required' => false,
 
-                // unmapped fields can't define their validation using annotations
-                // in the associated entity, so you can use the PHP constraint classes
                 'constraints' => [
                     new File([
                         'maxSize' => '204800k',
@@ -46,6 +42,7 @@ class MusiqueType extends AbstractType
             'label' => 'Nom du groupe',
             'required' => false,
             'mapped' => false,
+//                'placeholder'=>
         ])->add('titre', TextType::class, [
                 'label' => 'Nom de la musique',
                 'required' => true,
