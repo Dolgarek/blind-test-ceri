@@ -9,6 +9,7 @@ use App\Form\MusiqueType;
 use App\Repository\MusiqueImporteRepository;
 use App\Repository\MusiqueRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -53,10 +54,6 @@ class MusiqueController extends AbstractController
             $extraData['themes'] = $form->get('themes')->getData();
             $extraData['tags'] = $form->get('tags')->getData();
             $extraData['timestamp'] = $form->get('tags')->getData();
-            if ($extraData['themes'] != null) {
-                $themes = explode(",", $form->get('themes')->getData());
-                $extraData['themes'] = $themes;
-            }
             if ($extraData['tags'] != null) {
                 $tags = explode(",", $form->get('tags')->getData());
                 $extraData['tags'] = $tags;
@@ -83,6 +80,9 @@ class MusiqueController extends AbstractController
             $musiqueInfo->setArtiste($extraData['artiste']);
             $musiqueInfo->setDateDeSortie($extraData['date']);
 //            $musiqueInfo->setThemes($extraData['themes']);
+            foreach ($extraData['themes'] as $theme){
+                $musiqueInfo->addTheme($theme);
+            }
             $musiqueInfo->setTags($extraData['tags']);
             $musiqueInfo->setTimestamp($extraData['timestamp']);
             if ($this->getUser()->getRoles()[0] != "ROLE_ADMIN") {
@@ -116,8 +116,28 @@ class MusiqueController extends AbstractController
 
     #[Route('/{id}/edit', name: 'app_musique_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Musique $musique, MusiqueRepository $musiqueRepository): Response
-    {
+    {//        $formData = ['titre' => $musique->getMusiqueInfo()->getTitre()];
+
+//        $form = $this->createForm(MusiqueType::class, $musique);
+
+//        $musique = $musiqueRepository->find($id);
+        dump($musique, $musique->getMusiqueInfo()->getTitre());
+
         $form = $this->createForm(MusiqueType::class, $musique);
+
+        $form->remove('musique');
+
+//        $form->setData($data);
+
+        $form->get('groupe')->setData($musique->getMusiqueInfo()->getGroupe());
+        $form->get('titre')->setData($musique->getMusiqueInfo()->getTitre());
+        $form->get('album')->setData($musique->getMusiqueInfo()->getAlbum());
+        $form->get('artiste')->setData($musique->getMusiqueInfo()->getArtiste());
+        $form->get('date')->setData($musique->getMusiqueInfo()->getDateDeSortie());
+        $form->get('themes')->setData($musique->getMusiqueInfo()->getThemes());
+        $form->get('tags')->setData($musique->getMusiqueInfo()->getTagsString());
+
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

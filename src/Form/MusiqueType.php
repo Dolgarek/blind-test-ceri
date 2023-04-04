@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Musique;
+use App\Entity\Theme;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -12,9 +14,11 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 
 class MusiqueType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -22,18 +26,13 @@ class MusiqueType extends AbstractType
             ->add('musique', FileType::class, [
                 'label' => 'Musique (mp3 file)',
 
-                // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
 
-                // make it optional so you don't have to re-upload the PDF file
-                // every time you edit the Product details
                 'required' => false,
 
-                // unmapped fields can't define their validation using annotations
-                // in the associated entity, so you can use the PHP constraint classes
                 'constraints' => [
                     new File([
-                        'maxSize' => '20480k',
+                        'maxSize' => '204800k',
                         'mimeTypes' => [
                             'audio/mpeg',
                         ],
@@ -44,6 +43,7 @@ class MusiqueType extends AbstractType
             'label' => 'Nom du groupe',
             'required' => false,
             'mapped' => false,
+//                'placeholder'=>
         ])->add('titre', TextType::class, [
                 'label' => 'Nom de la musique',
                 'required' => true,
@@ -60,10 +60,18 @@ class MusiqueType extends AbstractType
                 'label' => 'Date de sortie',
                 'required' => false,
                 'mapped' => false,
-            ])->add('themes', TextType::class, [
+                'widget' => 'choice',
+                'years' => range(date('Y'), date('Y') - 100),
+                'constraints' => [
+                    new LessThanOrEqual('today')
+                ]
+            ])->add('themes', EntityType::class, [
                 'label' => 'Thèmes',
                 'required' => false,
                 'mapped' => false,
+                'class' => Theme::class,
+                'multiple' => true,
+                'expanded' => false,
             ])->add('tags', TextType::class, [
                 'label' => 'Tags',
                 'required' => false,

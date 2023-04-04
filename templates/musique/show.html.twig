@@ -14,6 +14,7 @@
                 <th>Artiste</th>
                 <th>Groupe</th>
                 <th>Album</th>
+                <th>Themes</th>
                 <th>Date de parution</th>
             </tr>
         </thead>
@@ -25,6 +26,7 @@
                 <td>{{ musique.musiqueInfo.artiste }}</td>
                 <td>{{ musique.musiqueInfo.groupe }}</td>
                 <td>{{ musique.musiqueInfo.album }}</td>
+                <td>{% for theme in musique.musiqueInfo.themes %}{{ theme }} {% endfor %}</td>
                 <td>{{ musique.musiqueInfo.dateDeSortie|date('d-m-Y') }}</td>
             </tr>
         </tbody>
