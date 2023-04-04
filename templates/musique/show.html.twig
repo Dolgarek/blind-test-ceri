@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Musique{% endblock %}
+
+{% block body %}
+    <h1>Musique</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>IsGlobal</th>
+                <th>Titre</th>
+                <th>Artiste</th>
+                <th>Groupe</th>
+                <th>Album</th>
+                <th>Themes</th>
+                <th>Date de parution</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ musique.id }}</td>
+                <td>{{ musique.isGlobal ? 'Yes' : 'No' }}</td>
+                <td>{{ musique.musiqueInfo.titre }}</td>
+                <td>{{ musique.musiqueInfo.artiste }}</td>
+                <td>{{ musique.musiqueInfo.groupe }}</td>
+                <td>{{ musique.musiqueInfo.album }}</td>
+                <td>{% for theme in musique.musiqueInfo.themes %}{{ theme }} {% endfor %}</td>
+                <td>{{ musique.musiqueInfo.dateDeSortie|date('d-m-Y') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_musique_index') }}">back to list</a>
+
+    <a href="{{ path('app_musique_edit', {'id': musique.id}) }}">edit</a>
+
+    {{ include('musique/_delete_form.html.twig') }}
+{% endblock %}

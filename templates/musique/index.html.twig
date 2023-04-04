@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Musique index{% endblock %}
+
+{% block body %}
+    <h1>Musique index</h1>
+
+    <table class="table">
+        {% if user.roles[0] == "ROLE_ADMIN" %}
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Importateur</th>
+                <th>IsGlobal</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for musique in musiques %}
+            <tr>
+                <td>{{ musique.id }}</td>
+                <td>{{ musique.musiqueInfo.titre }}</td>
+                {% if musique.musiqueInfo.musiqueImporte is not null %}
+                <td>{{ musique.musiqueInfo.musiqueImporte.utilisateur.username }}</td>
+                {% else %}
+                    <td>Importé par l'admin</td>
+                {% endif %}
+                <td>{{ musique.isGlobal ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_musique_show', {'id': musique.id}) }}">show</a>
+                    <a href="{{ path('app_musique_edit', {'id': musique.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        {% else %}
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Importateur</th>
+                <th>actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for musique in musiques %}
+                {% if musique.musiqueInfo.musiqueImporte is not null and musique.musiqueInfo.musiqueImporte.utilisateur.username == user.username %}
+                <tr>
+                    <td>{{ musique.id }}</td>
+                    <td>{{ musique.musiqueInfo.titre }}</td>
+                    <td>{{ musique.musiqueInfo.musiqueImporte.utilisateur.username }}</td>
+                    <td>
+                        <a href="{{ path('app_musique_show', {'id': musique.id}) }}">show</a>
+                        <a href="{{ path('app_musique_edit', {'id': musique.id}) }}">edit</a>
+                    </td>
+                </tr>
+                {% endif %}
+            {% else %}
+                <tr>
+                    <td colspan="3">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        {% endif %}
+    </table>
+
+    <a href="{{ path('app_musique_new') }}">Create new</a>
+{% endblock %}

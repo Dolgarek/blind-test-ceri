@@ -40,6 +40,12 @@ class MusiqueInfo
     #[ORM\OneToOne(mappedBy: 'musiqueInfo', cascade: ['persist', 'remove'])]
     private ?MusiqueImporte $musiqueImporte = null;
 
+    #[ORM\Column(type: 'simple_array', nullable: true)]
+    private array $tags = [];
+
+    #[ORM\Column(nullable: true)]
+    private ?int $timestamp = null;
+
     public function __construct()
     {
         $this->themes = new ArrayCollection();
@@ -167,6 +173,37 @@ class MusiqueInfo
         }
 
         $this->musiqueImporte = $musiqueImporte;
+
+        return $this;
+    }
+
+    public function getTags(): array
+    {
+        return $this->tags;
+    }
+
+    public function setTags(?array $tags): self
+    {
+        $this->tags = $tags;
+
+        return $this;
+    }
+
+    public function getTagsString():?String{
+        $strTags = "";
+        foreach ($this->tags as $tag){
+            $strTags = $strTags . $tag;
+        }
+        return $strTags;
+
+    public function getTimestamp(): ?int
+    {
+        return $this->timestamp;
+    }
+
+    public function setTimestamp(?int $timestamp): self
+    {
+        $this->timestamp = $timestamp;
 
         return $this;
     }

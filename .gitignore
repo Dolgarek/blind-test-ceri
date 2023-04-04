@@ -5,6 +5,7 @@
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
+/migrations/
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
@@ -34,3 +35,4 @@ yarn-error.log
 /.env
 /.env.dev
 .env.dev
+/public/uploads/
