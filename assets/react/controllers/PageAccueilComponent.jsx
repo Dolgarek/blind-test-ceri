@@ -1,19 +1,37 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Button } from 'react-bootstrap';
 import { FaSignOutAlt } from 'react-icons/fa';
 import CircleContainerForProfilePictureComponent from './CircleContainerForProfilePictureComponent'
 import RGPD from './PageRGPDComponent'
 
 
-export default function (props) {
+export default async function (props) {
+    const [showModal, setShowModal] = useState(showModal);
+
+    const handleShowModal = () => setShowModal(true);
+    const handleHideModal = () => setShowModal(false);
+
+    //TODO: Implement call to API to ensure RGPD is accepted
+    /*
+    * await axios.get('/api/rgpd/accepted')
+    * .then((response) => {
+    *  if (response.data.accepted) {
+    *   setShowModal(false);
+    * } else {
+    *  setShowModal(true);
+    * }
+    * })
+    * .catch((error) => {
+    * console.log(error);
+    * });
+    * */
+
     return (
         <div className='imageBackground'>
             <div>
                 <CircleContainerForProfilePictureComponent id={props.id} username={props.username} firstName={props.firstName} lastName={props.lastName} password={props.password} imageUrl= {props.imageUrl}/>
             </div>
-            <RGPD showModal={true}  onHide={() => {}}  title="RGPD Consigne">
-        
-      </RGPD>
+            <RGPD showModal={showModal}  onHide={handleHideModal}  title="RGPD Consigne"></RGPD>
 
 
             <div className='containerAccueil'>

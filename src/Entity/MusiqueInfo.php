@@ -189,12 +189,14 @@ class MusiqueInfo
         return $this;
     }
 
-    public function getTagsString():?String{
+    public function getTagsString():?String
+    {
         $strTags = "";
-        foreach ($this->tags as $tag){
+        foreach ($this->tags as $tag) {
             $strTags = $strTags . $tag;
         }
         return $strTags;
+    }
 
     public function getTimestamp(): ?int
     {
