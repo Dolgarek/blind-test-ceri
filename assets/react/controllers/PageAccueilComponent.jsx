@@ -1,15 +1,20 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Button } from 'react-bootstrap';
 import { FaSignOutAlt } from 'react-icons/fa';
 import CircleContainerForProfilePictureComponent from './CircleContainerForProfilePictureComponent'
 import RGPD from './PageRGPDComponent'
 
 
-export default async function (props) {
+export default function (props) {
     const [showModal, setShowModal] = useState(showModal);
 
     const handleShowModal = () => setShowModal(true);
     const handleHideModal = () => setShowModal(false);
+
+    useEffect (() => {
+        const test = async () => {await console.log('promise')}
+        test();
+    }, []);
 
     //TODO: Implement call to API to ensure RGPD is accepted
     /*
