@@ -57,6 +57,8 @@ class MusiqueController extends AbstractController
             if ($extraData['tags'] != null) {
                 $tags = explode(",", $form->get('tags')->getData());
                 $extraData['tags'] = $tags;
+            } else {
+                $extraData['tags'] = [];
             }
             $originalFilename = pathinfo($extraData['musique']->getClientOriginalName(), PATHINFO_FILENAME);
             // this is needed to safely include the file name as part of the URL

@@ -11,10 +11,10 @@
         const audioPlayer = document.getElementById('audioPlayer');
         const audioSource = document.getElementById('audioSource');
         const urlParams = new URLSearchParams(window.location.search);
-        const timestamp = parseFloat(urlParams.get('timestamp')) || 0; // Utiliser 0 comme valeur par défaut
+        const timestamp = parseFloat(urlParams.get('timestamp')) || 0.01; // Utiliser 0 comme valeur par défaut
 
         audioPlayer.currentTime = timestamp; // Définir le point de départ de la lecture en fonction du timestamp
-        audioPlayer.volume = 0.01; // Ajustez le volume au niveau souhaité
+        audioPlayer.volume = timestamp; // Ajustez le volume au niveau souhaité
 
         // Chargez l'audio et commencez la lecture
         audioPlayer.load();
