@@ -123,13 +123,21 @@ class MusiqueController extends AbstractController
 //        $form = $this->createForm(MusiqueType::class, $musique);
 
 //        $musique = $musiqueRepository->find($id);
-        dump($musique, $musique->getMusiqueInfo()->getTitre());
+        //dump($musique, $musique->getMusiqueInfo()->getTitre());
 
         $form = $this->createForm(MusiqueType::class, $musique);
 
         $form->remove('musique');
+        if ($this->getUser()->getRoles()[0] != "ROLE_ADMIN") {
+            $form->remove('isGlobal');
+        }
 
 //        $form->setData($data);
+        $tagsStr = "";
+        foreach ($musique->getMusiqueInfo()->getTags() as $tag) {
+            $tagsStr .= $tag . ",";
+        }
+        
 
         $form->get('groupe')->setData($musique->getMusiqueInfo()->getGroupe());
         $form->get('titre')->setData($musique->getMusiqueInfo()->getTitre());
@@ -143,6 +151,21 @@ class MusiqueController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $extraData = $this->processExtraData($form);
+            $musique->getMusiqueInfo()->setGroupe($extraData['groupe']);
+            $musique->getMusiqueInfo()->setTitre($extraData['titre']);
+            $musique->getMusiqueInfo()->setAlbum($extraData['album']);
+            $musique->getMusiqueInfo()->setArtiste($extraData['artiste']);
+            $musique->getMusiqueInfo()->setDateDeSortie($extraData['date']);
+            foreach ($extraData['themes'] as $theme){
+                $musique->getMusiqueInfo()->addTheme($theme);
+            }
+            $musique->getMusiqueInfo()->setTags($extraData['tags']);
+            $musique->getMusiqueInfo()->setTimestamp($extraData['timestamp']);
+            if ($this->getUser()->getRoles()[0] == "ROLE_ADMIN") {
+                $musique->setIsGlobal($form->get('isGlobal')->getData());
+            }
+
             $musiqueRepository->save($musique, true);
 
             return $this->redirectToRoute('app_musique_index', [], Response::HTTP_SEE_OTHER);
@@ -162,5 +185,26 @@ class MusiqueController extends AbstractController
         }
 
         return $this->redirectToRoute('app_musique_index', [], Response::HTTP_SEE_OTHER);
+    }
+    //TODO: Tester la fonction suivante puis modifier la fonction edit
+    //TODO: Vérifier le renvoi vers TWIG de app_jeu_index
+    public function processExtraData($form): array
+    {
+        $extraData = [];
+        $extraData['groupe'] = $form->get('groupe')->getData();
+        $extraData['titre'] = $form->get('titre')->getData();
+        $extraData['album'] = $form->get('album')->getData();
+        $extraData['artiste'] = $form->get('artiste')->getData();
+        $extraData['date'] = $form->get('date')->getData();
+        $extraData['themes'] = $form->get('themes')->getData();
+        $extraData['tags'] = $form->get('tags')->getData();
+        $extraData['timestamp'] = $form->get('timestamp')->getData();
+        if ($extraData['tags'] != null) {
+            $tags = explode(",", $form->get('tags')->getData());
+            $extraData['tags'] = $tags;
+        } else {
+            $extraData['tags'] = [];
+        }
+        return $extraData;
     }
 }

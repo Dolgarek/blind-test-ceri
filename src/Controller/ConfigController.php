@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\ConfigPartieType;
 use App\Repository\MusiqueRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,10 +26,19 @@ class ConfigController extends AbstractController
         //dd($request, $form->getData(), $configPartie, $form);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($form->getData(), $configPartie);
-        }
-        else if ($request->isMethod('POST')) {
-            $this->addFlash('admin_error', 'Vous devez ajouter au moins un thème');
+            $configPartie = $form->getData();
+            $musiquesFromTheme = $this->musiqueRepository->findBy(['themes' => $configPartie['themes']]);
+            if ($configPartie['tags'] != null) {
+                $tags = explode(",", $form->get('tags')->getData());
+                $configPartie['tags'] = $tags;
+            } else {
+                $configPartie['tags'] = [];
+            }
+            if (sizeof($configPartie['tags']) > 0) {
+                $musiquesFromTags = $this->musiqueRepository->findBy(['tags' => $configPartie['tags']]);
+                $musiquesList = array_unique(array_merge($musiquesFromTheme, $musiquesFromTags));
+            }
+            return $this->redirectToRoute('app_jeu_index', ['options' => $form->getData()]);
         }
 
         return $this->render('config/index.html.twig', [

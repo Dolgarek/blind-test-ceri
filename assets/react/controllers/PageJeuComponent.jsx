@@ -92,7 +92,7 @@ export default function (props) {
                                 return <div className="timer"><div id="remainingTime" className="value" style={{fontSize: '1rem'}}>{currentSong.nom}<br/><div style={{fontSize: '0.5rem'}}>C'est fini !</div></div></div>
                             }
                             if (gameState === 1) {
-                                return <div className="timer"><div id="remainingTime" className="value" style={{fontSize: '1rem'}}>currentSong.nom</div></div>
+                                return <div className="timer"><div id="remainingTime" className="value" style={{fontSize: '1rem'}}>{currentSong.nom}</div></div>
                             }
                             return <div className="timer"><div id="remainingTime" className="value">"C'est fini !"</div></div>
                         }
