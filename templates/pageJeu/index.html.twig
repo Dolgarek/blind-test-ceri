@@ -10,6 +10,6 @@
 
 <div class="example-wrapper">
     {{ dump(options) }}
-    <div {{ react_component('PageJeuComponent', { 'countdownSeconds': 5, 'musiques': [{'id': 1, 'timestamp': 10, 'nom': 'Oui', 'answerCorrect': false, 'answer': ''}, {'id': 1, 'timestamp': 20, 'nom': 'Non', 'answerCorrect': false, 'answer': ''}] }) }}></div>
+    <div {{ react_component('PageJeuComponent', { 'countdownSeconds': 5, 'musiques': [{'id': 1, 'timestamp': 10, 'titre': 'Oui', 'answerCorrect': false, 'answer': ''}, {'id': 1, 'timestamp': 20, 'titre': 'Non', 'answerCorrect': false, 'answer': ''}] }) }}></div>
 </div>
 {% endblock %}

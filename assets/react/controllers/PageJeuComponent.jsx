@@ -1,3 +1,4 @@
+/*
 import React, {useEffect, useState} from 'react';
 import {CountdownCircleTimer} from "react-countdown-circle-timer";
 
@@ -107,4 +108,106 @@ export default function (props) {
 
         </div>
     )
+}*/
+import React, { useEffect, useState } from "react";
+import { useTimer } from "use-timer";
+import {Form} from "react-bootstrap";
+
+export default function PageJeuComponent(props) {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [finishedMode, setFinishedMode] = useState(false);
+    const [answer, setAnswer] = useState('');
+    const { time, start, pause, reset } = useTimer({
+        endTime: 0,
+        initialTime: 5,
+        timerType: "DECREMENTAL",
+    });
+    let currentSong
+    let audioPlayer = undefined
+    let audioSource = undefined
+
+    useEffect(() => {
+        currentSong = props.musiques[currentIndex]
+        if (audioPlayer === undefined && audioSource === undefined) {
+            audioPlayer = document.getElementById('audioPlayer');
+            audioSource = document.getElementById('audioSource');
+        }
+        audioPlayer.currentTime = parseFloat(currentSong.timestamp) || 0; // Définir le point de départ de la lecture en fonction du timestamp
+        audioPlayer.volume = 0.01; // Ajustez le volume au niveau souhaité
+
+        // Chargez l'audio et commencez la lecture
+        audioSource.src = 'api/playSong/' + currentSong.id;
+        audioPlayer.load();
+        audioPlayer.play();
+        start();
+    }, []);
+
+    useEffect(() => {
+        if (time === 0) {
+            pause();
+            setFinishedMode(true);
+            if (audioPlayer === undefined && audioSource === undefined) {
+                audioPlayer = document.getElementById('audioPlayer');
+                audioSource = document.getElementById('audioSource');
+            }
+            audioPlayer.pause();
+            setTimeout(() => {
+                if (currentIndex < props.musiques.length - 1) {
+                    setCurrentIndex(currentIndex + 1);
+
+                    currentSong = props.musiques[currentIndex+1]
+                    let oldSong = props.musiques[currentIndex]
+                    if(answer===oldSong.titre){
+                        oldSong.answerCorrect=true;
+                    }
+                    oldSong.answer=answer;
+                    // audioPlayer.currentTime = parseFloat(currentSong.timestamp) || 0; // Définir le point de départ de la lecture en fonction du timestamp
+                    // audioPlayer.volume = 0.01; // Ajustez le volume au niveau souhaité
+
+                    // Chargez l'audio et commencez la lecture
+                    audioSource.src = 'api/playSong/' + currentSong.id;
+                    audioPlayer.load();
+                    audioPlayer.currentTime = parseFloat(currentSong.timestamp) || 0; // Définir le point de départ de la lecture en fonction du timestamp
+                    audioPlayer.volume = 0.01; // Ajustez le volume au niveau souhaité
+                    audioPlayer.play();
+                    setFinishedMode(false);
+                    setAnswer("");
+                    reset();
+                    start();
+                } else {
+                    audioPlayer.pause();
+                }
+            }, 1500);
+        }
+    }, [time]);
+
+    function verifyMusic(){
+        if(answer===currentSong.titre){
+            currentSong.answerCorrect=true;
+        }
+        currentSong.answer=answer;
+        console.log(currentSong.answer);
+    }
+
+    return (
+        <div>
+            <div>
+                <audio id="audioPlayer" controls>
+                    <source id="audioSource" src="" type="audio/mpeg"></source>
+                </audio>
+            </div>
+            <h1>{props.musiques[currentIndex].titre}</h1>
+            <p>Temps restant : {time}</p>
+            <div className="answer-wrapper">
+                <Form>
+                    <Form.Group controlId="formAnswer" className='form-group-sm'>
+                        <Form.Label className='profileLabelText'>Réponse :</Form.Label>
+                        <Form.Control type="text" placeholder="Entrez une réponse" name="_answer" value={answer}
+                                      onChange={(event)=>{setAnswer(event.target.value);}} plaintext={finishedMode} readOnly={finishedMode} className="form-control-sm"/>
+                    </Form.Group>
+                </Form>
+                {currentSong && currentSong.titre === answer ? (<div className='goodAnswer'>La bonne réponse est : {props.musique[0].titre}</div>) : (<div></div>)}
+            </div>
+        </div>
+    );
 }

@@ -137,7 +137,7 @@ class MusiqueController extends AbstractController
         foreach ($musique->getMusiqueInfo()->getTags() as $tag) {
             $tagsStr .= $tag . ",";
         }
-        
+
 
         $form->get('groupe')->setData($musique->getMusiqueInfo()->getGroupe());
         $form->get('titre')->setData($musique->getMusiqueInfo()->getTitre());
