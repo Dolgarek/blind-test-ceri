@@ -31,7 +31,6 @@ class UtilisateurType extends AbstractType
                     'class' => 'profileLabelText',
                 ],
             ])
-            ->add('roles')
             ->add('password',TextType::class, [
                 'label' => 'Mot de passe',
                 'required' => true,
@@ -104,18 +103,6 @@ class UtilisateurType extends AbstractType
                 'attr' => [
                     'class' => 'formSelectChoice',
                 ],
-            ])->add('parties',EntityType::class, [
-                'label' => 'Parties',
-                'required' => false,
-                'class' => Partie::class,
-                'multiple' => true,
-                'expanded' => false,
-                'attr' => [
-                    'class' => 'formSelectDate',
-                ],
-                'label_attr' => [
-                    'class' => 'profileLabelText',
-                ]
             ])->add('avatar', FileType::class, [
                 'label' => 'Avatar(.jpg .png .jpeg)',
                 'mapped' => false,
