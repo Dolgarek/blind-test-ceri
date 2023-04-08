@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Button } from 'react-bootstrap';
 import { FaSignOutAlt } from 'react-icons/fa';
 import CircleContainerForProfilePictureComponent from './CircleContainerForProfilePictureComponent'
 import RGPD from './PageRGPDComponent'
 
 
-export default async function (props) {
+export default function (props) {
     const [showModal, setShowModal] = useState(showModal);
 
     const handleShowModal = () => setShowModal(true);
@@ -27,7 +27,7 @@ export default async function (props) {
     * */
 
     return (
-        <div className='imageBackground'>
+        <div>
             <div>
                 <CircleContainerForProfilePictureComponent id={props.id} username={props.username} firstName={props.firstName} lastName={props.lastName} password={props.password} imageUrl= {props.imageUrl}/>
             </div>
@@ -39,10 +39,10 @@ export default async function (props) {
                 <div className='introductionText'>Blindtest est le meilleur endroit pour tester vos connaissances musicales en ligne !
                     Jouez avec vos propres musiques ou avec celles de notre sélection de blindtests amusants et stimulants.</div>
                 <div className='positionButtonCenter'>
-                    <Button variant="mybtn" size="xxl">Nouvelle partie</Button>
+                    <Button href="/config" variant="mybtn" size="xxl">Nouvelle partie</Button>
                 </div>
                 <div className='positionButtonCenter'>
-                    <Button variant="mybtn" size="xxl">Importer des musiques</Button>
+                    <Button href="/musique" variant="mybtn" size="xxl">Importer des musiques</Button>
                 </div>
             </div>
             <div className='positionButtonDownLeft'>

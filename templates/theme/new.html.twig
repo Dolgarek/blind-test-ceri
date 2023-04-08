@@ -3,9 +3,22 @@
 {% block title %}New Theme{% endblock %}
 
 {% block body %}
-    <h1>Create new Theme</h1>
-
-    {{ include('theme/_form.html.twig') }}
-
-    <a href="{{ path('app_theme_index') }}">back to list</a>
+<style>
+        .example-wrapper { margin: 1em auto; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+    <div class="example-wrapper">
+        <div>
+            <div {{react_component('CircleContainerForProfilePictureComponent',{ 'username': user.username, 'id': user.id, 'firstName': user.prenom, 'lastName': user.nom, 'password': user.password ,'imageUrl': 'https://logodix.com/logo/330698.png'}) }}></div>
+            <div class='detailsMusiqueContainer'>
+                <div class='welcomeText'>Ajouter un nouveau thème</div>
+                <div class="child">
+                    {{ include('theme/_form.html.twig') }}
+                </div>
+                <div class="tableContainer">
+                    <p><a href="{{ path('app_theme_index') }}" class='resultTableText'><i class="fa-sharp fa-solid fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Retour vers la liste de thèmes</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

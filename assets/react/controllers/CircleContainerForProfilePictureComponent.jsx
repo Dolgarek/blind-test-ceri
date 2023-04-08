@@ -14,11 +14,12 @@ export default function CircleContainerForProfilePictureComponent(props) {
 
     return (
         <>
-        <div className="circle-image-container" onClick={handleModalOpen} title="Voir le profil">
-            <div className="circle-image" style={{ backgroundImage: `url(${props.imageUrl})` }}></div>
+        <div className="circle-image-container" title="Voir le profil">
+            <a href="/" class='createNewRecordLinkPadding'><i class="fa-solid fa-house fa-2xl"></i>&nbsp;&nbsp;</a>
+            <div className="circle-image" onClick={handleModalOpen} style={{ backgroundImage: `url(${props.imageUrl})` }}></div>
         </div>
 
-        <PageProfilComponent id={props.id} username={props.username} firstName={props.firstName} lastName={props.lastName} show={modalShow} onHide={handleModalClose}/>
+        <PageProfilComponent id={props.id} username={props.username} firstName={props.firstName} lastName={props.lastName} avatarFile={props.imageUrl} show={modalShow} onHide={handleModalClose}/>
     </>
     );
 }
