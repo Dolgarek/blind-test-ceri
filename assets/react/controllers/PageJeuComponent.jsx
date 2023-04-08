@@ -119,15 +119,16 @@ export default function PageJeuComponent(props) {
     const [answer, setAnswer] = useState('');
     const { time, start, pause, reset } = useTimer({
         endTime: 0,
-        initialTime: 5,
+        initialTime: props.countdownSeconds,
         timerType: "DECREMENTAL",
     });
     let currentSong
     let audioPlayer = undefined
     let audioSource = undefined
+    let musiques = JSON.parse(props.musiques)
 
     useEffect(() => {
-        currentSong = props.musiques[currentIndex]
+        currentSong = musiques[currentIndex]
         if (audioPlayer === undefined && audioSource === undefined) {
             audioPlayer = document.getElementById('audioPlayer');
             audioSource = document.getElementById('audioSource');
@@ -152,11 +153,12 @@ export default function PageJeuComponent(props) {
             }
             audioPlayer.pause();
             setTimeout(() => {
-                if (currentIndex < props.musiques.length - 1) {
+                if (currentIndex < musiques.length - 1) {
                     setCurrentIndex(currentIndex + 1);
 
-                    currentSong = props.musiques[currentIndex+1]
-                    let oldSong = props.musiques[currentIndex]
+                    currentSong = musiques[currentIndex+1]
+                    console.log(currentSong)
+                    let oldSong = musiques[currentIndex]
                     if(answer===oldSong.titre){
                         oldSong.answerCorrect=true;
                     }
@@ -191,12 +193,12 @@ export default function PageJeuComponent(props) {
 
     return (
         <div>
-            <div>
+            <div hidden>
                 <audio id="audioPlayer" controls>
                     <source id="audioSource" src="" type="audio/mpeg"></source>
                 </audio>
             </div>
-            <h1>{props.musiques[currentIndex].titre}</h1>
+            {/*<h1>{musiques[currentIndex].titre}</h1>*/}
             <p>Temps restant : {time}</p>
             <div className="answer-wrapper">
                 <Form>
@@ -206,7 +208,7 @@ export default function PageJeuComponent(props) {
                                       onChange={(event)=>{setAnswer(event.target.value);}} plaintext={finishedMode} readOnly={finishedMode} className="form-control-sm"/>
                     </Form.Group>
                 </Form>
-                {currentSong && currentSong.titre === answer ? (<div className='goodAnswer'>La bonne réponse est : {props.musique[0].titre}</div>) : (<div></div>)}
+                {finishedMode ? (<div className='goodAnswer'>La bonne réponse est : {currentSong ? currentSong.titre : JSON.parse(props.musiques)[currentIndex].titre}</div>) : (<div></div>)}
             </div>
         </div>
     );

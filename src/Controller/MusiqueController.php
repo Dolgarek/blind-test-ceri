@@ -191,12 +191,14 @@ class MusiqueController extends AbstractController
 
         return $this->redirectToRoute('app_musique_index', [], Response::HTTP_SEE_OTHER);
     }
-    //TODO: Vérifier le renvoi vers TWIG de app_jeu_index
+
     public function processExtraData($form): array
     {
         $extraData = [];
-        if ($form->get('isGlobal')->getData() != null) {
-            $extraData['isGlobal'] = $form->get('isGlobal')->getData();
+        if ($this->getUser()->getRoles()[0] == "ROLE_ADMIN"){
+            if ($form->get('isGlobal')->getData() != null) {
+                $extraData['isGlobal'] = $form->get('isGlobal')->getData();
+            }
         }
         else {
             $extraData['isGlobal'] = false;
