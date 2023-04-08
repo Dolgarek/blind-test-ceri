@@ -21,9 +21,16 @@ class UtilisateurController extends AbstractController
     #[Route('/', name: 'app_utilisateur_index', methods: ['GET'])]
     public function index(UtilisateurRepository $utilisateurRepository): Response
     {
-        return $this->render('utilisateur/index.html.twig', [
-            'utilisateurs' => $utilisateurRepository->findAll(),
-        ]);
+        if($this->getUser()->getRoles()[0] == 'ROLE_ADMIN'){
+            return $this->render('utilisateur/index.html.twig', [
+                'utilisateurs' => $utilisateurRepository->findAll(),
+            ]);
+        }else{
+            return $this->render('utilisateur/index.html.twig', [
+                'utilisateurs' => $utilisateurRepository->findBy(['username'=>$this->getUser()->getUserIdentifier()]),
+            ]);
+        }
+
     }
 
     #[Route('/new', name: 'app_utilisateur_new', methods: ['GET', 'POST'])]
@@ -71,6 +78,10 @@ class UtilisateurController extends AbstractController
         $form = $this->createForm(UtilisateurType::class, $utilisateur);
         $form->offsetUnset('username');
         $form->handleRequest($request);
+
+        if($this->getUser()->getRoles()[0] != 'ROLE_ADMIN'){
+            $form->offsetUnset('roles');
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $avatarFile = $form->get('avatar')->getData();
@@ -144,6 +155,24 @@ class UtilisateurController extends AbstractController
         if ((strlen($newPass) > 5)) {
             $user->setPassword($passwordHasher->hashPassword($user, $newPass));
         }
+
+//        $newAvatar = $requestArr['avatarFile'];
+//        if($newAvatar){
+//            $originalFilename = pathinfo($newAvatar->getClientOriginalName(), PATHINFO_FILENAME);
+//            $safeFilename = $slugger->slug($originalFilename);
+//            $newFilename = $safeFilename . '-' . uniqid() . '.' . $newAvatar->guessExtension();
+//
+//            try {
+//                $newAvatar->move(
+//                    $this->getParameter('avatars_directory'),
+//                    $newFilename
+//                );
+//            } catch (FileException $e) {
+//                // ...
+//            }
+//
+//            $utilisateur->setAvatarFileName($newFilename);
+//        }
 
         if(strlen($newPass) > 5 || strlen($newPass) == 0) {
             $utilisateurRepository->save($user, true);
