@@ -126,6 +126,7 @@ export default function PageJeuComponent(props) {
     let audioPlayer = undefined
     let audioSource = undefined
     let musiques = JSON.parse(props.musiques)
+    let result = JSON.parse(props.musiques)
 
     useEffect(() => {
         currentSong = musiques[currentIndex]
@@ -146,6 +147,11 @@ export default function PageJeuComponent(props) {
     useEffect(() => {
         if (time === 0) {
             pause();
+            if(answer===JSON.parse(props.musiques)[currentIndex].titre){
+                result[currentIndex].answerCorrect=true;
+            }
+            result[currentIndex].answer=answer;
+            console.log(result)
             setFinishedMode(true);
             if (audioPlayer === undefined && audioSource === undefined) {
                 audioPlayer = document.getElementById('audioPlayer');
@@ -157,12 +163,12 @@ export default function PageJeuComponent(props) {
                     setCurrentIndex(currentIndex + 1);
 
                     currentSong = musiques[currentIndex+1]
-                    console.log(currentSong)
-                    let oldSong = musiques[currentIndex]
+                    //console.log(currentSong)
+                    /*let oldSong = musiques[currentIndex]
                     if(answer===oldSong.titre){
-                        oldSong.answerCorrect=true;
+                        props.musiques[currentIndex].answerCorrect=true;
                     }
-                    oldSong.answer=answer;
+                    oldSong.answer=answer;*/
                     // audioPlayer.currentTime = parseFloat(currentSong.timestamp) || 0; // Définir le point de départ de la lecture en fonction du timestamp
                     // audioPlayer.volume = 0.01; // Ajustez le volume au niveau souhaité
 
@@ -170,7 +176,7 @@ export default function PageJeuComponent(props) {
                     audioSource.src = 'api/playSong/' + currentSong.id;
                     audioPlayer.load();
                     audioPlayer.currentTime = parseFloat(currentSong.timestamp) || 0; // Définir le point de départ de la lecture en fonction du timestamp
-                    audioPlayer.volume = 0.01; // Ajustez le volume au niveau souhaité
+                    audioPlayer.volume = 0.2; // Ajustez le volume au niveau souhaité
                     audioPlayer.play();
                     setFinishedMode(false);
                     setAnswer("");
@@ -178,8 +184,10 @@ export default function PageJeuComponent(props) {
                     start();
                 } else {
                     audioPlayer.pause();
+                    console.log(result)
+                    window.location.assign(`finJeu?music=${JSON.stringify(result)}`)
                 }
-            }, 1500);
+            }, 5000);
         }
     }, [time]);
 
@@ -188,7 +196,7 @@ export default function PageJeuComponent(props) {
             currentSong.answerCorrect=true;
         }
         currentSong.answer=answer;
-        console.log(currentSong.answer);
+        //console.log(currentSong.answer);
     }
 
     return (
@@ -208,7 +216,7 @@ export default function PageJeuComponent(props) {
                                       onChange={(event)=>{setAnswer(event.target.value);}} plaintext={finishedMode} readOnly={finishedMode} className="form-control-sm"/>
                     </Form.Group>
                 </Form>
-                {finishedMode ? (<div className='goodAnswer'>La bonne réponse est : {currentSong ? currentSong.titre : JSON.parse(props.musiques)[currentIndex].titre}</div>) : (<div></div>)}
+                {finishedMode ? (<div className={JSON.parse(props.musiques)[currentIndex].titre === answer ? 'text-success' : 'text-danger'}>La bonne réponse est : {currentSong ? currentSong.titre : JSON.parse(props.musiques)[currentIndex].titre}</div>) : (<div></div>)}
             </div>
         </div>
     );

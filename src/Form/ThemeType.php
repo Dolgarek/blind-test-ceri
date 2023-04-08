@@ -16,7 +16,7 @@ class ThemeType extends AbstractType
             ->add('nom',TextType::class, [
                 'label' => 'Nom du thème',
                 'required' => true,
-                'mapped' => false,
+                'mapped' => true,
                 'attr' => [
                     'class' => 'form-control-sm',
                 ],

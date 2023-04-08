@@ -15,7 +15,6 @@ export default function EditProfileModal(props) {
     };
 
     const handleSaveButtonClick = async () => {
-        console.log(avatarFile);
         let formData = new FormData();
         formData.append('username', username);
         formData.append('firstName', firstName);
