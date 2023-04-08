@@ -69,7 +69,7 @@ class ConfigController extends AbstractController
             //dd($configPartie, $musiqueNotMerged, $musiquesList, $musiqueNotMergedTags);
             if (sizeof($musiquesList) < $form->get('nbMusic')->getData()) {
                 $this->addFlash('admin_warning', 'Il n\'y a pas assez de musiques pour cette configuration (Taille de la liste: ' . sizeof($musiquesList) . ', Nombre de musiques demandées: ' . $form->get('nbMusic')->getData() . ')');
-                return $this->redirectToRoute('config', []);
+                return $this->redirectToRoute('app_config', []);
             }
             if (sizeof($musiquesList) > $form->get('nbMusic')->getData()) {
                 $loopSize = sizeof($musiquesList) - $form->get('nbMusic')->getData();

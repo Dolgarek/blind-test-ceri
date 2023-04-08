@@ -150,7 +150,11 @@ class MusiqueController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $extraData = $this->processExtraData($form);
-            $musique->setIsGlobal($extraData['isGlobal']);
+            if (array_key_exists('isGlobal', $extraData)) {
+                $musique->setIsGlobal($extraData['isGlobal']);
+            } else {
+                $musique->setIsGlobal(false);
+            }
             $musiqueInfo = $musique->getMusiqueInfo();
             $musiqueInfo->setGroupe($extraData['groupe']);
             $musiqueInfo->setTitre($extraData['titre']);
