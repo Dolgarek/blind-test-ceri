@@ -11,11 +11,6 @@ export default function (props) {
     const handleShowModal = () => setShowModal(true);
     const handleHideModal = () => setShowModal(false);
 
-    useEffect (() => {
-        const test = async () => {await console.log('promise')}
-        test();
-    }, []);
-
     //TODO: Implement call to API to ensure RGPD is accepted
     /*
     * await axios.get('/api/rgpd/accepted')
@@ -44,10 +39,10 @@ export default function (props) {
                 <div className='introductionText'>Blindtest est le meilleur endroit pour tester vos connaissances musicales en ligne !
                     Jouez avec vos propres musiques ou avec celles de notre sélection de blindtests amusants et stimulants.</div>
                 <div className='positionButtonCenter'>
-                    <Button variant="mybtn" size="xxl">Nouvelle partie</Button>
+                    <Button href="/config" variant="mybtn" size="xxl">Nouvelle partie</Button>
                 </div>
                 <div className='positionButtonCenter'>
-                    <Button variant="mybtn" size="xxl">Importer des musiques</Button>
+                    <Button href="/musique" variant="mybtn" size="xxl">Importer des musiques</Button>
                 </div>
             </div>
             <div className='positionButtonDownLeft'>

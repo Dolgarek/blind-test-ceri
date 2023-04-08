@@ -8,8 +8,8 @@
         .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
     </style>
     <div class="example-wrapper">
-        <div>
-            <div {{react_component('CircleContainerForProfilePictureComponent',{ 'username': user.username, 'id': user.id, 'firstName': user.prenom, 'lastName': user.nom, 'password': user.password ,'imageUrl': 'https://logodix.com/logo/330698.png'}) }}></div>
+        <div class='imageBackground'>
+            <div {{react_component('CircleContainerForProfilePictureComponent',{ 'username': user.username, 'id': user.id, 'firstName': user.prenom, 'lastName': user.nom, 'password': user.password ,'imageUrl': user.avatarFilename ? '/uploads/avatars/' ~ user.avatarFileName : 'https://logodix.com/logo/330698.png'}) }}></div>
             <div class='containerAccueil'>
                 <div class='welcomeText'>Tableau de thèmes</div>
                 <div class='tableContainerAnother'> 
@@ -33,7 +33,7 @@
                             </tr>
                         {% else %}
                             <tr>
-                                <td colspan="3"class='resultTableText'>Pas d'enregistrement</td>
+                                <td colspan="3" class='resultTableText'>Pas d'enregistrement</td>
                             </tr>
                         {% endfor %}
                         </tbody>
