@@ -13,6 +13,8 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\AtLeastOneOf;
+use Symfony\Component\Validator\Constraints\Count;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 
@@ -72,6 +74,10 @@ class MusiqueType extends AbstractType
                 'class' => Theme::class,
                 'multiple' => true,
                 'expanded' => false,
+                'constraints' => new Count([
+                    'min'=> 1,
+                    'minMessage' => 'Vous devez choisir au moins un thème'
+            ]),
             ])->add('tags', TextType::class, [
                 'label' => 'Tags',
                 'required' => false,

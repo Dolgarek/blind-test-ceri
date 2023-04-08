@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Form\ConfigPartieType;
+use App\Repository\MusiqueInfoRepository;
 use App\Repository\MusiqueRepository;
+use App\Repository\ThemeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,7 +14,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ConfigController extends AbstractController
 {
-    public function __construct(private readonly MusiqueRepository $musiqueRepository, private readonly EntityManagerInterface $entityManager)
+    public function __construct(
+        private readonly MusiqueRepository $musiqueRepository,
+        private readonly MusiqueInfoRepository $musiqueInfoRepository,
+        private readonly ThemeRepository $themeRepository,
+        private readonly EntityManagerInterface $entityManager)
     {
     }
 
@@ -27,6 +33,20 @@ class ConfigController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $configPartie = $form->getData();
+            $musiqueNotMerged = [];
+            $conn = $this->entityManager->getConnection();
+            foreach ($form->get('themes')->getData() as $theme) {
+
+                $sql = 'SELECT * FROM theme_musique_info tmi WHERE tmi.theme_id = :theme';
+                $stmt = $conn->prepare($sql);
+                $resultSet = $stmt->executeQuery(['theme' => $theme->getId()]);
+                foreach ($resultSet->fetchAllAssociative() as $row) {
+                    $musiqueNotMerged[] = $this->musiqueInfoRepository->find($row['musique_info_id']);
+                }
+                //dd($this->musiqueInfoRepository->findAll()[0]->getThemes(), $musiqueNotMerged);
+            }
+            $musiquesList = array_unique($musiqueNotMerged);
+            dd($configPartie, $musiqueNotMerged, $musiquesList);
             $musiquesFromTheme = $this->musiqueRepository->findBy(['themes' => $configPartie['themes']]);
             if ($configPartie['tags'] != null) {
                 $tags = explode(",", $form->get('tags')->getData());

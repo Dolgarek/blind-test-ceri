@@ -129,7 +129,7 @@ class MusiqueInfo
         if (!$this->themes->contains($theme)) {
             $this->themes->add($theme);
             $theme->addMusiqueInfo($this);
-        }
+        } else { dump("debug", $this->themes); }
 
         return $this;
     }
