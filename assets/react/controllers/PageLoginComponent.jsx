@@ -9,7 +9,7 @@ function LoginForm() {
 
 
   return (
-    <div className='imageBackgroundLogin'>
+    <div>
       <div className='welcomeText'>Blindtest !</div>
       <div className='loginCard'>
         <Card className='mx-auto'>

@@ -8,7 +8,7 @@
         .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
     </style>
     <div class="example-wrapper">
-        <div class='imageBackground'>
+        <div>
             <div {{react_component('CircleContainerForProfilePictureComponent',{ 'username': user.username, 'id': user.id, 'firstName': user.prenom, 'lastName': user.nom, 'password': user.password ,'imageUrl': 'https://logodix.com/logo/330698.png'}) }}></div>
             <div class='utilisateursContainer'>
                 <div class='welcomeText'>Tableau d'utilisateurs</div>
@@ -51,7 +51,6 @@
                 </div>
                 <div class="tableContainerAnotherBigger">
                     <p><a href="{{ path('app_utilisateur_new') }}" class='createNewRecordLinkPadding'><i class="fa-solid fa-plus"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ajouter un nouvel utilisateur</a></p>
-                    <p><a href="/" class='createNewRecordLinkPadding'><i class="fa-sharp fa-solid fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Page d'accueil</a></p>
                 </div>
             </div>
         </div>

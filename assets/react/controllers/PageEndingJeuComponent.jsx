@@ -27,7 +27,7 @@ export default function (props) {
         }];
 
     return (
-        <div className='imageBackground'>
+        <div>
             <div>
                 <CircleContainerForProfilePictureComponent id={props.id} username={props.username} firstName={props.firstName} lastName={props.lastName} password={props.password} imageUrl= {props.imageUrl}/>
             </div>
