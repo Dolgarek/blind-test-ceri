@@ -151,7 +151,6 @@ export default function PageJeuComponent(props) {
                 result[currentIndex].answerCorrect=true;
             }
             result[currentIndex].answer=answer;
-            console.log(result)
             setFinishedMode(true);
             if (audioPlayer === undefined && audioSource === undefined) {
                 audioPlayer = document.getElementById('audioPlayer');
@@ -163,20 +162,12 @@ export default function PageJeuComponent(props) {
                     setCurrentIndex(currentIndex + 1);
 
                     currentSong = musiques[currentIndex+1]
-                    //console.log(currentSong)
-                    /*let oldSong = musiques[currentIndex]
-                    if(answer===oldSong.titre){
-                        props.musiques[currentIndex].answerCorrect=true;
-                    }
-                    oldSong.answer=answer;*/
-                    // audioPlayer.currentTime = parseFloat(currentSong.timestamp) || 0; // Définir le point de départ de la lecture en fonction du timestamp
-                    // audioPlayer.volume = 0.01; // Ajustez le volume au niveau souhaité
 
                     // Chargez l'audio et commencez la lecture
                     audioSource.src = 'api/playSong/' + currentSong.id;
                     audioPlayer.load();
                     audioPlayer.currentTime = parseFloat(currentSong.timestamp) || 0; // Définir le point de départ de la lecture en fonction du timestamp
-                    audioPlayer.volume = 0.2; // Ajustez le volume au niveau souhaité
+                    audioPlayer.volume = 0.01; // Ajustez le volume au niveau souhaité
                     audioPlayer.play();
                     setFinishedMode(false);
                     setAnswer("");
@@ -184,7 +175,6 @@ export default function PageJeuComponent(props) {
                     start();
                 } else {
                     audioPlayer.pause();
-                    console.log(result)
                     window.location.assign(`finJeu?music=${JSON.stringify(result)}`)
                 }
             }, 5000);
