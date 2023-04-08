@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 #[Route('/utilisateur')]
 class UtilisateurController extends AbstractController
@@ -64,9 +65,50 @@ class UtilisateurController extends AbstractController
         ]);
     }
 
+    #[Route('/edit/{id}', name: 'app_utilisateur_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Utilisateur $utilisateur, UtilisateurRepository $utilisateurRepository, SluggerInterface $slugger, UserPasswordHasherInterface $userPasswordHasher): Response
+    {
+        $form = $this->createForm(UtilisateurType::class, $utilisateur);
+        $form->offsetUnset('username');
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $avatarFile = $form->get('avatar')->getData();
+            if ($avatarFile) {
+                $originalFilename = pathinfo($avatarFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $avatarFile->guessExtension();
+
+                try {
+                    $avatarFile->move(
+                        $this->getParameter('avatars_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ...
+                }
+                $filesystem = new Filesystem();
+                $projectDir = $this->getParameter('kernel.project_dir');
+                $filesystem->remove($projectDir . '/public/uploads/avatars/' . $utilisateur->getAvatarFileName());
+                $utilisateur->setAvatarFileName($newFilename);
+            }
+//            dd($form->get('password')->getData());
+            $utilisateur->setPassword($userPasswordHasher->hashPassword($utilisateur, $form->get('password')->getData()));
+            $utilisateurRepository->save($utilisateur, true);
+
+            return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('utilisateur/edit.html.twig', [
+            'utilisateur' => $utilisateur,
+            'form' => $form,
+        ]);
+    }
+
     #[Route('/api/get/{id}', name: 'app_utilisateur_show', methods: ['GET'])]
     public function show(Utilisateur $utilisateur): Response
     {
+        dump($utilisateur);
         return $this->render('utilisateur/show.html.twig', [
             'utilisateur' => $utilisateur,
         ]);
@@ -81,7 +123,7 @@ class UtilisateurController extends AbstractController
             'nom' => $user->getNom(),
             'prenom' => $user->getPrenom(),
             'username' => $user->getUsername(),
-            'username' => $user->getUsername(),
+//            'username' => $user->getUsername(),
         ];
         $response = new Response(json_encode($jsonArr));
         $response->headers->set('Content-Type', 'application/json');
@@ -117,43 +159,7 @@ class UtilisateurController extends AbstractController
         ]), 400);
     }
 
-    #[Route('/edit/{id}', name: 'app_utilisateur_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Utilisateur $utilisateur, UtilisateurRepository $utilisateurRepository, SluggerInterface $slugger): Response
-    {
-        $form = $this->createForm(UtilisateurType::class, $utilisateur);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $utilisateurRepository->save($utilisateur, true);
-            $avatarFile = $form->get('avatar')->getData();
-
-            if ($avatarFile) {
-                $originalFilename = pathinfo($avatarFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $avatarFile->guessExtension();
-
-                try {
-                    $avatarFile->move(
-                        $this->getParameter('avatars_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    // ...
-                }
-
-                $utilisateur->setAvatarFileName($newFilename);
-            }
-
-            return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('utilisateur/edit.html.twig', [
-            'utilisateur' => $utilisateur,
-            'form' => $form,
-        ]);
-    }
-
-    #[Route('/api/edit/{id}', name: 'app_utilisateur_edit', methods: ['GET', 'POST'])]
+    #[Route('/api/edit/{id}', name: 'app_utilisateur_api_edit', methods: ['GET', 'POST'])]
     public function apiEdit(Request $request, Utilisateur $utilisateur, UtilisateurRepository $utilisateurRepository, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(UtilisateurType::class, $utilisateur);
