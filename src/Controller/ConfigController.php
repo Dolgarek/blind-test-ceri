@@ -88,6 +88,7 @@ class ConfigController extends AbstractController
         return $this->render('config/index.html.twig', [
             'controller_name' => 'ConfigController',
             'form' => $form,
+            'user' => $this->getUser(),
         ]);
 }
 

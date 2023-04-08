@@ -26,24 +26,24 @@ class ConfigPartieType extends AbstractType
             'multiple' => true,
             'expanded' => false,
             'attr' => [
-                'class' => 'form-select',
+                'class' => 'formSelectDate',
             ],
             'label_attr' => [
-                'class' => 'form-label mt-2',
-            ],
+                'class' => 'profileLabelText',
+            ]
         ])->add('tags', TextType::class, [
             'label' => 'Tags',
-            'label_attr' => [
-                'class' => 'form-label mt-2',
-            ],
             'required' => false,
             'mapped' => true,
-            'attr' => [
-                'class' => 'form-control-custom',
-            ],
             'help' => 'Séparez les tags par une virgule',
             'help_attr' => [
                 'class' => 'form-text',
+            ],
+            'attr' => [
+                'class' => 'form-control-sm',
+            ],
+            'label_attr' => [
+                'class' => 'profileLabelText',
             ],
         ])->add('difficulte', ChoiceType::class, [
             'choices'  => [
@@ -54,24 +54,24 @@ class ConfigPartieType extends AbstractType
             'choice_attr' => [
                 'Moyen' => ['selected' => true]
             ],
-            'attr' => [
-                'class' => 'form-select',
-            ],
             'label' => 'Difficulté',
-            'label_attr' => [
-                'class' => 'form-label mt-2',
-            ],
             'required' => true,
             'mapped' => true,
+            'label_attr' => [
+                'class' => 'profileLabelText',
+            ],
+            'attr' => [
+                'class' => 'formSelectChoice',
+            ],
         ])->add('nbMusic', IntegerType::class, [
             'label' => 'Nombre de musique',
             'label_attr' => [
-                'class' => 'form-label mt-2',
+                'class' => 'profileLabelText',
             ],
             'required' => true,
             'mapped' => true,
             'attr' => [
-                'class' => 'form-control-custom',
+                'class' => 'form-control-sm',
             ],
             'help' => 'Minimum 1 et maximum 100',
             'help_attr' => [

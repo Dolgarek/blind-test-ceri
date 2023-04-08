@@ -21,6 +21,10 @@ class UtilisateurController extends AbstractController
     #[Route('/', name: 'app_utilisateur_index', methods: ['GET'])]
     public function index(UtilisateurRepository $utilisateurRepository): Response
     {
+        return $this->render('utilisateur/index.html.twig', [
+            'utilisateurs' => $utilisateurRepository->findAll(),
+            'user' => $this->getUser(),
+        ]);
         if($this->getUser()->getRoles()[0] == 'ROLE_ADMIN'){
             return $this->render('utilisateur/index.html.twig', [
                 'utilisateurs' => $utilisateurRepository->findAll(),
@@ -30,7 +34,6 @@ class UtilisateurController extends AbstractController
                 'utilisateurs' => $utilisateurRepository->findBy(['username'=>$this->getUser()->getUserIdentifier()]),
             ]);
         }
-
     }
 
     #[Route('/new', name: 'app_utilisateur_new', methods: ['GET', 'POST'])]
@@ -69,6 +72,7 @@ class UtilisateurController extends AbstractController
         return $this->render('utilisateur/new.html.twig', [
             'utilisateur' => $utilisateur,
             'form' => $form,
+            'user' => $this->getUser(),
         ]);
     }
 
@@ -122,6 +126,7 @@ class UtilisateurController extends AbstractController
         dump($utilisateur);
         return $this->render('utilisateur/show.html.twig', [
             'utilisateur' => $utilisateur,
+            'user' => $this->getUser(),
         ]);
     }
 
@@ -188,6 +193,43 @@ class UtilisateurController extends AbstractController
         ]), 400);
     }
 
+    #[Route('/edit/{id}', name: 'app_utilisateur_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Utilisateur $utilisateur, UtilisateurRepository $utilisateurRepository, SluggerInterface $slugger): Response
+    {
+        $form = $this->createForm(UtilisateurType::class, $utilisateur);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $utilisateurRepository->save($utilisateur, true);
+            $avatarFile = $form->get('avatar')->getData();
+
+            if ($avatarFile) {
+                $originalFilename = pathinfo($avatarFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $avatarFile->guessExtension();
+
+                try {
+                    $avatarFile->move(
+                        $this->getParameter('avatars_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ...
+                }
+
+                $utilisateur->setAvatarFileName($newFilename);
+            }
+
+            return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('utilisateur/edit.html.twig', [
+            'utilisateur' => $utilisateur,
+            'form' => $form,
+            'user' => $this->getUser(),
+        ]);
+    }
+
     #[Route('/api/edit/{id}', name: 'app_utilisateur_api_edit', methods: ['GET', 'POST'])]
     public function apiEdit(Request $request, Utilisateur $utilisateur, UtilisateurRepository $utilisateurRepository, SluggerInterface $slugger): Response
     {
@@ -221,6 +263,7 @@ class UtilisateurController extends AbstractController
         return $this->renderForm('utilisateur/edit.html.twig', [
             'utilisateur' => $utilisateur,
             'form' => $form,
+            'user' => $this->getUser(),
         ]);
     }
 

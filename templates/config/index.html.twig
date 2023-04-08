@@ -3,17 +3,21 @@
 {% block title %}Configuration de la partie{% endblock %}
 
 {% block body %}
-    <div class="container-fluid m-0">
-        <div class="row mt-4">
-            <div class="col-12 mt-4 pt-4">
-                <h2 class="text-center">Configuration de la partie</h2>
-            </div>
-            <div class="row">
-                <div class="col-12 d-flex justify-content-center">
+<style>
+        .example-wrapper { margin: 1em auto; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+    <div class="example-wrapper">
+        <div class='imageBackground'>
+            <div {{react_component('CircleContainerForProfilePictureComponent',{ 'username': user.username, 'id': user.id, 'firstName': user.prenom, 'lastName': user.nom, 'password': user.password ,'imageUrl': 'https://logodix.com/logo/330698.png'}) }}></div>
+            <div class='detailsMusiqueContainer'>
+                <div class='welcomeText'>Configuration de la partie</div>
+                <div class='tableContainerAnotherBigger'>
                     {{ form_start(form) }}
                     {{ form_widget(form) }}
-                    <button class="btn btn-primary mt-3">{{ button_label|default('Start') }}</button>
-                    {{ form_end(form) }}
+                    <div class="littleContainer">
+                        <button class="btn btn-mybtn">{{ button_label|default('Commencer') }}</button>
+                    </div>
                 </div>
             </div>
         </div>

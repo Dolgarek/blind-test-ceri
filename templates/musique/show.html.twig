@@ -3,40 +3,51 @@
 {% block title %}Musique{% endblock %}
 
 {% block body %}
-    <h1>Musique</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>IsGlobal</th>
-                <th>Titre</th>
-                <th>Artiste</th>
-                <th>Groupe</th>
-                <th>Album</th>
-                <th>Themes</th>
-                <th>Tags</th>
-                <th>Date de parution</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{ musique.id }}</td>
-                <td>{{ musique.isGlobal ? 'Yes' : 'No' }}</td>
-                <td>{{ musique.musiqueInfo.titre }}</td>
-                <td>{{ musique.musiqueInfo.artiste }}</td>
-                <td>{{ musique.musiqueInfo.groupe }}</td>
-                <td>{{ musique.musiqueInfo.album }}</td>
-                <td>{% for theme in musique.musiqueInfo.themes %}{{ theme }} {% endfor %}</td>
-                <td>{% for tag in musique.musiqueInfo.tags %}{{ tag }} {% endfor %}</td>
-                <td>{{ musique.musiqueInfo.dateDeSortie|date('d-m-Y') }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_musique_index') }}">back to list</a>
-
-    <a href="{{ path('app_musique_edit', {'id': musique.id}) }}">edit</a>
-
-    {{ include('musique/_delete_form.html.twig') }}
+<style>
+        .example-wrapper { margin: 1em auto; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+    <div class="example-wrapper">
+        <div class='imageBackground'>
+            <div {{react_component('CircleContainerForProfilePictureComponent',{ 'username': user.username, 'id': user.id, 'firstName': user.prenom, 'lastName': user.nom, 'password': user.password ,'imageUrl': 'https://logodix.com/logo/330698.png'}) }}></div>
+            <div class='detailsMusiqueContainer'>
+                <div class='welcomeText'>Details de la musique</div>
+                <div class='tableContainerAnother'>
+                    <table class="tableBig">
+                        <thead>
+                            <tr>
+                                <th class='introductionText'>Identifiants</th>
+                                <th class='introductionText'>Global</th>
+                                <th class='introductionText'>Titre</th>
+                                <th class='introductionText'>Artiste</th>
+                                <th class='introductionText'>Groupe</th>
+                                <th class='introductionText'>Album</th>
+                                <th class='introductionText'>Themes</th>
+                                <th class='introductionText'>Tags</th>
+                                <th class='introductionText'>Date de parution</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class='resultTableText'>{{ musique.id }}</td>
+                                <td class='resultTableText'>{{ musique.isGlobal ? 'Oui' : 'Non' }}</td>
+                                <td class='resultTableText'>{{ musique.musiqueInfo.titre }}</td>
+                                <td class='resultTableText'>{{ musique.musiqueInfo.artiste }}</td>
+                                <td class='resultTableText'>{{ musique.musiqueInfo.groupe }}</td>
+                                <td class='resultTableText'>{{ musique.musiqueInfo.album }}</td>
+                                <td class='resultTableText'>{% for theme in musique.musiqueInfo.themes %}{{ theme }} {% endfor %}</td>
+                                <td class='resultTableText'>{% for tag in musique.musiqueInfo.tags %}{{ tag }} {% endfor %}</td>
+                                <td class='resultTableText'>{{ musique.musiqueInfo.dateDeSortie|date('d-m-Y') }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tableContainerAnother">
+                    <p><a href="{{ path('app_musique_index') }}" class='resultTableText'><i class="fa-sharp fa-solid fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Retour vers la liste de musiques</a></p>
+                    <p><a href="{{ path('app_musique_edit', {'id': musique.id}) }}" class='resultTableText'><i class="fa-solid fa-pen"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Modifier</a></p>
+                    {{ include('musique/_delete_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

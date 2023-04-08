@@ -1,73 +1,86 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Musique index{% endblock %}
-
 {% block body %}
-    <h1>Musique index</h1>
-
-    <table class="table">
-        {% if user.roles[0] == "ROLE_ADMIN" %}
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Importateur</th>
-                <th>IsGlobal</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for musique in musiques %}
-            <tr>
-                <td>{{ musique.id }}</td>
-                <td>{{ musique.musiqueInfo.titre }}</td>
-                {% if musique.musiqueInfo.musiqueImporte is not null %}
-                <td>{{ musique.musiqueInfo.musiqueImporte.utilisateur.username }}</td>
-                {% else %}
-                    <td>Importé par l'admin</td>
-                {% endif %}
-                <td>{{ musique.isGlobal ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('app_musique_show', {'id': musique.id}) }}">show</a>
-                    <a href="{{ path('app_musique_edit', {'id': musique.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-        {% else %}
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Importateur</th>
-                <th>actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for musique in musiques %}
-                {% if musique.musiqueInfo.musiqueImporte is not null and musique.musiqueInfo.musiqueImporte.utilisateur.username == user.username %}
-                <tr>
-                    <td>{{ musique.id }}</td>
-                    <td>{{ musique.musiqueInfo.titre }}</td>
-                    <td>{{ musique.musiqueInfo.musiqueImporte.utilisateur.username }}</td>
-                    <td>
-                        <a href="{{ path('app_musique_show', {'id': musique.id}) }}">show</a>
-                        <a href="{{ path('app_musique_edit', {'id': musique.id}) }}">edit</a>
-                    </td>
-                </tr>
-                {% endif %}
-            {% else %}
-                <tr>
-                    <td colspan="3">no records found</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        {% endif %}
-    </table>
-
-    <a href="{{ path('app_musique_new') }}">Create new</a>
+    <style>
+        .example-wrapper { margin: 1em auto; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+    <div class="example-wrapper">
+        <div class='imageBackground'>
+            <div {{react_component('CircleContainerForProfilePictureComponent',{ 'username': user.username, 'id': user.id, 'firstName': user.prenom, 'lastName': user.nom, 'password': user.password ,'imageUrl': 'https://logodix.com/logo/330698.png'}) }}></div>
+            <div class='containerAccueil'>
+                <div class='welcomeText'>Tableau de musiques</div>
+                <div class='tableContainerAnother'>
+                    <table>
+                        {% if user.roles[0] == "ROLE_ADMIN" %}
+                        <thead>
+                            <tr>
+                                <th class='introductionText'>Identifiants</th>
+                                <th class='introductionText'>Nom</th>
+                                <th class='introductionText'>Importateur</th>
+                                <th class='introductionText'>Global</th>
+                                <th class='introductionText'>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for musique in musiques %}
+                            <tr>
+                                <td class='resultTableText'>{{ musique.id }}</td>
+                                <td class='resultTableText'>{{ musique.musiqueInfo.titre }}</td>
+                                {% if musique.musiqueInfo.musiqueImporte is not null %}
+                                <td class='resultTableText'>{{ musique.musiqueInfo.musiqueImporte.utilisateur.username }}</td>
+                                {% else %}
+                                    <td class='resultTableText'>Importé par l'admin</td>
+                                {% endif %}
+                                <td class='resultTableText'>{{ musique.isGlobal ? 'Oui' : 'Non' }}</td>
+                                <td class='resultTableText'>
+                                    <a href="{{ path('app_musique_show', {'id': musique.id}) }}" class='resultTableText'><i class="fa-solid fa-eye"></i></a>
+                                    <a href="{{ path('app_musique_edit', {'id': musique.id}) }}" class='resultTableText'><i class="fa-solid fa-pen"></i></a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="3" class='resultTableText'>Pas d'enregistrement</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        {% else %}
+                            <thead>
+                            <tr>
+                                <th class='introductionText'>Identifiants</th>
+                                <th class='introductionText'>Nom</th>
+                                <th class='introductionText'>Importateur</th>
+                                <th class='introductionText'>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for musique in musiques %}
+                                {% if musique.musiqueInfo.musiqueImporte is not null and musique.musiqueInfo.musiqueImporte.utilisateur.username == user.username %}
+                                <tr>
+                                    <td class='resultTableText'>{{ musique.id }}</td>
+                                    <td class='resultTableText'>{{ musique.musiqueInfo.titre }}</td>
+                                    <td class='resultTableText'>{{ musique.musiqueInfo.musiqueImporte.utilisateur.username }}</td>
+                                    <td class='resultTableText'>
+                                        <a href="{{ path('app_musique_show', {'id': musique.id}) }}" class='resultTableText'><i class="fa-solid fa-eye"></i></a>
+                                        <a href="{{ path('app_musique_edit', {'id': musique.id}) }}" class='resultTableText'><i class="fa-solid fa-pen"></i></a>
+                                    </td>
+                                </tr>
+                                {% endif %}
+                            {% else %}
+                                <tr>
+                                    <td class='resultTableText'colspan="3">Pas d'enregistrement</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        {% endif %}
+                    </table>
+                </div>
+                <div class="tableContainerAnotherBigger">
+                    <p><a href="{{ path('app_musique_new') }}" class='createNewRecordLinkPadding'><i class="fa-solid fa-plus"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ajouter un nouvel enregistrement</a></p>
+                    <p><a href="/" class='createNewRecordLinkPadding'><i class="fa-sharp fa-solid fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Page d'accueil</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
