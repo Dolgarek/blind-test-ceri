@@ -18,6 +18,7 @@ class ThemeController extends AbstractController
     {
         return $this->render('theme/index.html.twig', [
             'themes' => $themeRepository->findAll(),
+            'user' => $this->getUser(),
         ]);
     }
 
@@ -46,6 +47,7 @@ class ThemeController extends AbstractController
         return $this->renderForm('theme/new.html.twig', [
             'theme' => $theme,
             'form' => $form,
+            'user' => $this->getUser(),
         ]);
     }
 
@@ -54,6 +56,7 @@ class ThemeController extends AbstractController
     {
         return $this->render('theme/show.html.twig', [
             'theme' => $theme,
+            'user' => $this->getUser(),
         ]);
     }
 
@@ -72,6 +75,7 @@ class ThemeController extends AbstractController
         return $this->renderForm('theme/edit.html.twig', [
             'theme' => $theme,
             'form' => $form,
+            'user' => $this->getUser(),
         ]);
     }
 

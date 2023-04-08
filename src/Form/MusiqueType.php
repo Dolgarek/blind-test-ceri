@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
@@ -22,7 +23,16 @@ class MusiqueType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('isGlobal')
+            ->add('isGlobal',CheckboxType::class, [
+                'label'    => 'Est-elle globale ?',
+                'required' => false,
+                'attr' => [
+                    'class' => 'formSelectDate',
+                ],
+                'label_attr' => [
+                    'class' => 'profileLabelText',
+                ],
+            ])
             ->add('musique', FileType::class, [
                 'label' => 'Musique (mp3 file)',
 

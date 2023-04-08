@@ -9,7 +9,7 @@
     </style>
     <div class="example-wrapper">
         <div class='imageBackground'>
-            <div {{react_component('CircleContainerForProfilePictureComponent',{ 'id':'123','username' : 'marie13', 'firstName':'jofjro', 'lastName':'onjkn', 'password':'hhhh', 'imageUrl': 'https://logodix.com/logo/330698.png'}) }}></div>
+            <div {{react_component('CircleContainerForProfilePictureComponent',{ 'username': user.username, 'id': user.id, 'firstName': user.prenom, 'lastName': user.nom, 'password': user.password ,'imageUrl': 'https://logodix.com/logo/330698.png'}) }}></div>
             <div class='detailsMusiqueContainer'>
                 <div class='welcomeText'>Details de la musique</div>
                 <div class='tableContainerAnother'>
@@ -41,7 +41,7 @@
                     </table>
                 </div>
                 <div class="tableContainerAnother">
-                    <p><a href="{{ path('app_musique_index') }}" class='resultTableText'><i class="fa-sharp fa-solid fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Retour cers la liste de musiques</a></p>
+                    <p><a href="{{ path('app_musique_index') }}" class='resultTableText'><i class="fa-sharp fa-solid fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Retour vers la liste de musiques</a></p>
                     <p><a href="{{ path('app_musique_edit', {'id': musique.id}) }}" class='resultTableText'><i class="fa-solid fa-pen"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Modifier</a></p>
                     {{ include('musique/_delete_form.html.twig') }}
                 </div>

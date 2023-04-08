@@ -105,6 +105,7 @@ class MusiqueController extends AbstractController
         return $this->render('musique/new.html.twig', [
             'musique' => $musique,
             'form' => $form,
+            'user' => $this->getUser(),
         ]);
     }
 
@@ -113,6 +114,7 @@ class MusiqueController extends AbstractController
     {
         return $this->render('musique/show.html.twig', [
             'musique' => $musique,
+            'user' => $this->getUser(),
         ]);
     }
 
@@ -174,6 +176,7 @@ class MusiqueController extends AbstractController
         return $this->render('musique/edit.html.twig', [
             'musique' => $musique,
             'form' => $form,
+            'user' => $this->getUser(),
         ]);
     }
 

@@ -8,7 +8,7 @@
     </style>
     <div class="example-wrapper">
         <div class='imageBackground'>
-            <div {{react_component('CircleContainerForProfilePictureComponent',{ 'id':'123','username' : 'marie13', 'firstName':'jofjro', 'lastName':'onjkn', 'password':'hhhh', 'imageUrl': 'https://logodix.com/logo/330698.png'}) }}></div>
+            <div {{react_component('CircleContainerForProfilePictureComponent',{ 'username': user.username, 'id': user.id, 'firstName': user.prenom, 'lastName': user.nom, 'password': user.password ,'imageUrl': 'https://logodix.com/logo/330698.png'}) }}></div>
             <div class='containerAccueil'>
                 <div class='welcomeText'>Tableau de musiques</div>
                 <div class='tableContainerAnother'>
