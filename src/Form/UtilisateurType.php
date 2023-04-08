@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Utilisateur;
 use App\Entity\Partie;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -31,7 +33,7 @@ class UtilisateurType extends AbstractType
                     'class' => 'profileLabelText',
                 ],
             ])
-            ->add('password',TextType::class, [
+            ->add('password',PasswordType::class, [
                 'label' => 'Mot de passe',
                 'required' => true,
                 'attr' => [

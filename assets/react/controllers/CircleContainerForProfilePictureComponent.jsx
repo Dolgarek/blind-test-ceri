@@ -18,7 +18,7 @@ export default function CircleContainerForProfilePictureComponent(props) {
             <div className="circle-image" style={{ backgroundImage: `url(${props.imageUrl})` }}></div>
         </div>
 
-        <PageProfilComponent id={props.id} username={props.username} firstName={props.firstName} lastName={props.lastName} show={modalShow} onHide={handleModalClose}/>
+        <PageProfilComponent id={props.id} username={props.username} firstName={props.firstName} lastName={props.lastName} avatarFile={props.imageUrl} show={modalShow} onHide={handleModalClose}/>
     </>
     );
 }

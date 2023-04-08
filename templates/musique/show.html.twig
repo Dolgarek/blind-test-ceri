@@ -23,6 +23,7 @@
                                 <th class='introductionText'>Groupe</th>
                                 <th class='introductionText'>Album</th>
                                 <th class='introductionText'>Themes</th>
+                                <th class='introductionText'>Tags</th>
                                 <th class='introductionText'>Date de parution</th>
                             </tr>
                         </thead>
@@ -35,6 +36,7 @@
                                 <td class='resultTableText'>{{ musique.musiqueInfo.groupe }}</td>
                                 <td class='resultTableText'>{{ musique.musiqueInfo.album }}</td>
                                 <td class='resultTableText'>{% for theme in musique.musiqueInfo.themes %}{{ theme }} {% endfor %}</td>
+                                <td class='resultTableText'>{% for tag in musique.musiqueInfo.tags %}{{ tag }} {% endfor %}</td>
                                 <td class='resultTableText'>{{ musique.musiqueInfo.dateDeSortie|date('d-m-Y') }}</td>
                             </tr>
                         </tbody>
@@ -48,6 +50,4 @@
             </div>
         </div>
     </div>
-
-   
 {% endblock %}
