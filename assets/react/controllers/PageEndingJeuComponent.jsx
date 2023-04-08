@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import CircleContainerForProfilePictureComponent from './CircleContainerForProfilePictureComponent'
 import Right from '../../images/Right.png'
 import Wrong from '../../images/Wrong.png'
@@ -10,21 +10,11 @@ export default function (props) {
     // var IdFromURL = params.get('music');
     // var musics = JSON.parse(IdFromURL); 
     
-    const musics = [
-        {
-            "id": 1,
-            "url": "something/url",
-            "titre": "Test",
-            "answerCorrect": true,
-            "answer":"Test"
-        },
-        {
-            "id": 2,
-            "url": "somethingElse/url",
-            "titre": "Something",
-            "answerCorrect": false,
-            "answer":"So"
-        }];
+    const musics = JSON.parse(props.music)
+
+    useEffect(() => {
+        console.log(JSON.parse(props.music))
+    }, [])
 
     return (
         <div className='imageBackground'>
