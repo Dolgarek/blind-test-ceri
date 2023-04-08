@@ -66,9 +66,10 @@ class UtilisateurController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: 'app_utilisateur_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Utilisateur $utilisateur, UtilisateurRepository $utilisateurRepository, SluggerInterface $slugger): Response
+    public function edit(Request $request, Utilisateur $utilisateur, UtilisateurRepository $utilisateurRepository, SluggerInterface $slugger, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $form = $this->createForm(UtilisateurType::class, $utilisateur);
+        $form->offsetUnset('username');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -86,10 +87,14 @@ class UtilisateurController extends AbstractController
                 } catch (FileException $e) {
                     // ...
                 }
-
+                $filesystem = new Filesystem();
+                $projectDir = $this->getParameter('kernel.project_dir');
+                $filesystem->remove($projectDir . '/public/uploads/avatars/' . $utilisateur->getAvatarFileName());
                 $utilisateur->setAvatarFileName($newFilename);
-                $utilisateurRepository->save($utilisateur, true);
             }
+//            dd($form->get('password')->getData());
+            $utilisateur->setPassword($userPasswordHasher->hashPassword($utilisateur, $form->get('password')->getData()));
+            $utilisateurRepository->save($utilisateur, true);
 
             return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
         }
