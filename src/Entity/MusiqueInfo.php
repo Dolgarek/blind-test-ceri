@@ -51,6 +51,11 @@ class MusiqueInfo
         $this->themes = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->titre . ' - ' . $this->id;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -129,7 +134,7 @@ class MusiqueInfo
         if (!$this->themes->contains($theme)) {
             $this->themes->add($theme);
             $theme->addMusiqueInfo($this);
-        }
+        } else { dump("debug", $this->themes); }
 
         return $this;
     }

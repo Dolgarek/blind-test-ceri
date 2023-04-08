@@ -3,33 +3,46 @@
 {% block title %}Theme index{% endblock %}
 
 {% block body %}
-    <h1>Theme index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for theme in themes %}
-            <tr>
-                <td>{{ theme.id }}</td>
-                <td>{{ theme.nom }}</td>
-                <td>
-                    <a href="{{ path('app_theme_show', {'id': theme.id}) }}">show</a>
-                    <a href="{{ path('app_theme_edit', {'id': theme.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_theme_new') }}">Create new</a>
+    <style>
+        .example-wrapper { margin: 1em auto; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+    <div class="example-wrapper">
+        <div class='imageBackground'>
+            <div {{react_component('CircleContainerForProfilePictureComponent',{ 'username': user.username, 'id': user.id, 'firstName': user.prenom, 'lastName': user.nom, 'password': user.password ,'imageUrl': user.avatarFilename ? '/uploads/avatars/' ~ user.avatarFileName : 'https://logodix.com/logo/330698.png'}) }}></div>
+            <div class='containerAccueil'>
+                <div class='welcomeText'>Tableau de thèmes</div>
+                <div class='tableContainerAnother'> 
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class='introductionText'>Identifiants</th>
+                                <th class='introductionText'>Nom</th>
+                                <th class='introductionText'>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for theme in themes %}
+                            <tr>
+                                <td class='resultTableText'>{{ theme.id }}</td>
+                                <td class='resultTableText'>{{ theme.nom }}</td>
+                                <td class='resultTableText'>
+                                    <a href="{{ path('app_theme_show', {'id': theme.id}) }}" class='resultTableText'><i class="fa-solid fa-eye"></i></a>
+                                    <a href="{{ path('app_theme_edit', {'id': theme.id}) }}" class='resultTableText'><i class="fa-solid fa-pen"></i></a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="3" class='resultTableText'>Pas d'enregistrement</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tableContainerAnotherBigger">
+                    <p><a href="{{ path('app_theme_new') }}" class='createNewRecordLinkPadding'><i class="fa-solid fa-plus"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ajouter un nouveau thème</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
