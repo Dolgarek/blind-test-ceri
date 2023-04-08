@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 #[Route('/musique')]
 class MusiqueController extends AbstractController
@@ -185,8 +186,12 @@ class MusiqueController extends AbstractController
     #[Route('/{id}', name: 'app_musique_delete', methods: ['POST'])]
     public function delete(Request $request, Musique $musique, MusiqueRepository $musiqueRepository): Response
     {
+        dump($musique->getMusiqueFilename());
         if ($this->isCsrfTokenValid('delete'.$musique->getId(), $request->request->get('_token'))) {
             $musiqueRepository->remove($musique, true);
+            $filesystem = new Filesystem();
+            $projectDir = $this->getParameter('kernel.project_dir');
+            $filesystem->remove($projectDir . '/public/uploads/musiques/' . $musique->getMusiqueFilename());
         }
 
         return $this->redirectToRoute('app_musique_index', [], Response::HTTP_SEE_OTHER);
