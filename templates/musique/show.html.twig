@@ -35,8 +35,9 @@
                                 <td class='resultTableText'>{{ musique.musiqueInfo.artiste }}</td>
                                 <td class='resultTableText'>{{ musique.musiqueInfo.groupe }}</td>
                                 <td class='resultTableText'>{{ musique.musiqueInfo.album }}</td>
-                                <td class='resultTableText'>{% for theme in musique.musiqueInfo.themes %}{{ theme }} {% endfor %}</td>
-                                <td class='resultTableText'>{% for tag in musique.musiqueInfo.tags %}{{ tag }} {% endfor %}</td>
+                                <td class='resultTableText'>{% for theme in musique.musiqueInfo.themes %}{{ theme }}{% if not loop.last %} | {% endif %} {% endfor %}</td>
+{#                                <td class='resultTableText'>{% for theme in musique.musiqueInfo.themes %}{{ theme ~ ', ' }} {% endfor %}</td>#}
+                                <td class='resultTableText'>{% for tag in musique.musiqueInfo.tags %}{{ tag }}{% if not loop.last %} | {% endif %} {% endfor %}</td>
                                 <td class='resultTableText'>{{ musique.musiqueInfo.dateDeSortie|date('d-m-Y') }}</td>
                             </tr>
                         </tbody>

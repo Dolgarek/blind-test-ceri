@@ -27,11 +27,6 @@ export default function EditProfileModal(props) {
         setEditMode(false);
     };
 
-    const handleFileSelect = (event) => {
-        const file = event.target.files[0];
-        setAvatarFile(file);
-    };
-
     const handleCancelButtonClick = () => {
         setFirstName(props.firstName);
         setLastName(props.lastName);
@@ -65,10 +60,6 @@ export default function EditProfileModal(props) {
                     <Form.Label className='profileLabelText'>Mot de passe :</Form.Label>
                     <Form.Control type="password" placeholder="Entrez votre mot de passe" name="password" value={password}
                        plaintext={!editMode} readOnly={!editMode} onChange={(event)=>{setPassword(event.target.value);}} className="form-control-sm"/>
-                </Form.Group>
-                <Form.Group controlId="avatarFile" className='form-group-sm'>
-                    <Form.Label className=''>Avatar :</Form.Label>
-                    <Form.Control type="file" name="files-elect" onChange={handleFileSelect} className="form-control-sm"/>
                 </Form.Group>
             </Form>
         </Modal.Body>
