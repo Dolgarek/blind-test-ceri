@@ -9,7 +9,7 @@
     </style>
     <div class="example-wrapper">
         <div class='imageBackground'>
-            <div {{react_component('CircleContainerForProfilePictureComponent',{ 'username': user.username, 'id': user.id, 'firstName': user.prenom, 'lastName': user.nom, 'password': user.password ,'imageUrl': 'https://logodix.com/logo/330698.png'}) }}></div>
+            <div {{react_component('CircleContainerForProfilePictureComponent',{ 'username': user.username, 'id': user.id, 'firstName': user.prenom, 'lastName': user.nom, 'password': user.password ,'imageUrl': user.avatarFilename ? '/uploads/avatars/' ~ user.avatarFileName : 'https://logodix.com/logo/330698.png'}) }}></div>
             <div class='utilisateursContainer'>
                 <div class='welcomeText'>Tableau d'utilisateurs</div>
                 <div class='tableContainerAnother'>
