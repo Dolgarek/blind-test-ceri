@@ -196,17 +196,21 @@ export default function PageJeuComponent(props) {
                     <source id="audioSource" src="" type="audio/mpeg"></source>
                 </audio>
             </div>
-            {/*<h1>{musiques[currentIndex].titre}</h1>*/}
-            <p>Temps restant : {time}</p>
-            <div className="answer-wrapper">
-                <Form>
-                    <Form.Group controlId="formAnswer" className='form-group-sm'>
-                        <Form.Label className='profileLabelText'>Réponse :</Form.Label>
-                        <Form.Control type="text" placeholder="Entrez une réponse" name="_answer" value={answer}
-                                      onChange={(event)=>{setAnswer(event.target.value);}} plaintext={finishedMode} readOnly={finishedMode} className="form-control-sm"/>
-                    </Form.Group>
-                </Form>
-                {finishedMode ? (<div className={JSON.parse(props.musiques)[currentIndex].titre === answer ? 'text-success' : 'text-danger'}>La bonne réponse est : {currentSong ? currentSong.titre : JSON.parse(props.musiques)[currentIndex].titre}</div>) : (<div></div>)}
+            <div className='containerAccueil'>
+                <div className="centerContainer">
+                    <div className='welcomeText'>Il vous reste :</div>
+                    <div className='welcomeTextLato'>{time}</div>
+                    <div className="answer-wrapper">
+                        <Form>
+                            <Form.Group controlId="formAnswer" className='form-group-sm'>
+                                <Form.Label className='profileLabelText'>Réponse :</Form.Label>
+                                <Form.Control type="text" placeholder="Entrez une réponse" name="_answer" value={answer}
+                                            onChange={(event)=>{setAnswer(event.target.value);}} plaintext={finishedMode} readOnly={finishedMode} className="form-control-sm"/>
+                            </Form.Group>
+                        </Form>
+                        {finishedMode ? (<div className={JSON.parse(props.musiques)[currentIndex].titre === answer ? 'text-success' : 'text-danger'}>La bonne réponse est : {currentSong ? currentSong.titre : JSON.parse(props.musiques)[currentIndex].titre}</div>) : (<div></div>)}
+                    </div>
+                </div>
             </div>
         </div>
     );

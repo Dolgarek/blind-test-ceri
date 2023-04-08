@@ -12,7 +12,7 @@ function LoginForm(props) {
     const [error] = useState(props.error);
 
     return (
-        <div className='imageBackgroundLogin'>
+        <div>
             <div className='welcomeText'>Blindtest !</div>
             {error &&
                 <div className="row mt-2 mb-0">
