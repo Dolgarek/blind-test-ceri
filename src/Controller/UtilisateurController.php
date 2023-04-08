@@ -21,17 +21,15 @@ class UtilisateurController extends AbstractController
     #[Route('/', name: 'app_utilisateur_index', methods: ['GET'])]
     public function index(UtilisateurRepository $utilisateurRepository): Response
     {
-        return $this->render('utilisateur/index.html.twig', [
-            'utilisateurs' => $utilisateurRepository->findAll(),
-            'user' => $this->getUser(),
-        ]);
         if($this->getUser()->getRoles()[0] == 'ROLE_ADMIN'){
             return $this->render('utilisateur/index.html.twig', [
                 'utilisateurs' => $utilisateurRepository->findAll(),
+                'user' => $this->getUser(),
             ]);
         }else{
             return $this->render('utilisateur/index.html.twig', [
                 'utilisateurs' => $utilisateurRepository->findBy(['username'=>$this->getUser()->getUserIdentifier()]),
+                'user' => $this->getUser(),
             ]);
         }
     }
@@ -81,11 +79,8 @@ class UtilisateurController extends AbstractController
     {
         $form = $this->createForm(UtilisateurType::class, $utilisateur);
         $form->offsetUnset('username');
+        $form->offsetUnset('createdAt');
         $form->handleRequest($request);
-
-        if($this->getUser()->getRoles()[0] != 'ROLE_ADMIN'){
-            $form->offsetUnset('roles');
-        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $avatarFile = $form->get('avatar')->getData();
@@ -108,6 +103,11 @@ class UtilisateurController extends AbstractController
                 $utilisateur->setAvatarFileName($newFilename);
             }
 //            dd($form->get('password')->getData());
+            if ($this->getUser()->getRoles()[0] != 'ROLE_ADMIN')
+            {
+                $utilisateur->setRoles(['ROLE_USER']);
+            }
+
             $utilisateur->setPassword($userPasswordHasher->hashPassword($utilisateur, $form->get('password')->getData()));
             $utilisateurRepository->save($utilisateur, true);
 
@@ -116,6 +116,7 @@ class UtilisateurController extends AbstractController
 
         return $this->renderForm('utilisateur/edit.html.twig', [
             'utilisateur' => $utilisateur,
+            'user' => $utilisateur,
             'form' => $form,
         ]);
     }
@@ -193,7 +194,7 @@ class UtilisateurController extends AbstractController
         ]), 400);
     }
 
-    #[Route('/edit/{id}', name: 'app_utilisateur_edit', methods: ['GET', 'POST'])]
+    /*#[Route('/edit/{id}', name: 'app_utilisateur_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Utilisateur $utilisateur, UtilisateurRepository $utilisateurRepository, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(UtilisateurType::class, $utilisateur);
@@ -228,7 +229,7 @@ class UtilisateurController extends AbstractController
             'form' => $form,
             'user' => $this->getUser(),
         ]);
-    }
+    }*/
 
     #[Route('/api/edit/{id}', name: 'app_utilisateur_api_edit', methods: ['GET', 'POST'])]
     public function apiEdit(Request $request, Utilisateur $utilisateur, UtilisateurRepository $utilisateurRepository, SluggerInterface $slugger): Response

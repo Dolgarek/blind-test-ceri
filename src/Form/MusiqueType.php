@@ -124,7 +124,7 @@ class MusiqueType extends AbstractType
                 ],
                 'label_attr' => [
                     'class' => 'profileLabelText',
-                ]
+                ],
                 'constraints' => new Count([
                     'min'=> 1,
                     'minMessage' => 'Vous devez choisir au moins un thème'
