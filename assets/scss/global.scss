@@ -9,9 +9,15 @@
     src: local('Lato-Light'), url(../fonts/Lato-Light.ttf) format('truetype');
 
 }
+
+html {
+  height: 100%;
+}
+
 body {
     background: linear-gradient(55deg,#8CADDB, #AE8CDB);
     position: relative;
+    min-height: 98%;
 }
 
   
