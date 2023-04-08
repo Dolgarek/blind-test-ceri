@@ -325,3 +325,90 @@ body {
 .value {
     font-size: 40px;
 }
+.resultTableText {
+    font-family: 'Lato-Light';
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    margin:20px;
+    color: #EAE5E1;
+    text-shadow: 2px 4px 4px rgba(	51, 121, 170, 0.6);
+}
+.tableContainer {
+    padding-bottom: 300px;
+}
+
+.tableContainerAnother {
+    padding-bottom: 50px;
+}
+.tableContainerAnotherBigger {
+    padding-bottom: 200px;
+}
+a {
+    text-decoration: none;
+  }
+.createNewRecordLinkPadding{
+    font-family: 'Lato-Light';
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    margin:20px;
+    color: #EAE5E1;
+    text-shadow: 2px 4px 4px rgba(	51, 121, 170, 0.6);
+}
+table {
+    border: 3px solid #EAE5E1;
+    width: 800px;
+    min-height: 250px;
+  }
+.tableBig{
+    width: 1200px;
+}
+.detailsMusiqueContainer{
+    position: relative;
+    margin: 1em auto; max-width: 1200px; width: 100%;
+}
+
+th {
+    border-bottom: none;
+  }
+
+  td {
+    text-align: center;
+    justify-content: center;
+    vertical-align: middle;
+    position: relative;
+  }
+
+  .child {
+    width: 800px;
+    margin: 0 auto;
+  }
+
+  .formSelectDate{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    font-family: 'Lato-Light';
+    font-size: 16px;
+    font-weight: 600;
+    margin:10px;
+    border: none;
+    box-sizing: content-box;
+    color: #EAE5E1;
+    background: none;
+}
+
+.profileLabelText,
+.formSelectDate {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  margin-bottom: 0;
+}
+
+.littleContainer{
+    margin: 30px;
+    margin-left: 10px;
+}

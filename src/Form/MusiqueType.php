@@ -36,26 +36,55 @@ class MusiqueType extends AbstractType
                         'mimeTypes' => [
                             'audio/mpeg',
                         ],
-                        'mimeTypesMessage' => 'Please upload a valid mp3 document',
+                        'mimeTypesMessage' => 'Veuillez uploader un fichier mp3 valide',
                     ])
+                ],
+                'attr' => [
+                    'class' => 'formSelectDate',
+                ],
+                'label_attr' => [
+                    'class' => 'profileLabelText',
                 ],
             ])->add('groupe', TextType::class, [
             'label' => 'Nom du groupe',
             'required' => false,
             'mapped' => false,
-//                'placeholder'=>
+            'attr' => [
+                'class' => 'form-control-sm',
+            ],
+            'label_attr' => [
+                'class' => 'profileLabelText',
+            ],
         ])->add('titre', TextType::class, [
                 'label' => 'Nom de la musique',
                 'required' => true,
                 'mapped' => false,
+                'attr' => [
+                    'class' => 'form-control-sm',
+                ],
+                'label_attr' => [
+                    'class' => 'profileLabelText',
+                ],
             ])->add('album', TextType::class, [
                 'label' => 'Nom de l\'album',
                 'required' => false,
                 'mapped' => false,
+                'attr' => [
+                    'class' => 'form-control-sm',
+                ],
+                'label_attr' => [
+                    'class' => 'profileLabelText',
+                ],
             ])->add('artiste', TextType::class, [
                 'label' => 'Nom de l\'artiste',
                 'required' => false,
                 'mapped' => false,
+                'attr' => [
+                    'class' => 'form-control-sm',
+                ],
+                'label_attr' => [
+                    'class' => 'profileLabelText',
+                ],
                 ])->add('date', DateType::class, [
                 'label' => 'Date de sortie',
                 'required' => false,
@@ -64,7 +93,13 @@ class MusiqueType extends AbstractType
                 'years' => range(date('Y'), date('Y') - 100),
                 'constraints' => [
                     new LessThanOrEqual('today')
-                ]
+                ],
+                'label_attr' => [
+                    'class' => 'profileLabelText',
+                ],
+                'attr' => [
+                    'class' => 'formSelectDate',
+                ],
             ])->add('themes', EntityType::class, [
                 'label' => 'Thèmes',
                 'required' => false,
@@ -72,14 +107,32 @@ class MusiqueType extends AbstractType
                 'class' => Theme::class,
                 'multiple' => true,
                 'expanded' => false,
+                'attr' => [
+                    'class' => 'formSelectDate',
+                ],
+                'label_attr' => [
+                    'class' => 'profileLabelText',
+                ]
             ])->add('tags', TextType::class, [
                 'label' => 'Tags',
                 'required' => false,
                 'mapped' => false,
+                'attr' => [
+                    'class' => 'form-control-sm',
+                ],
+                'label_attr' => [
+                    'class' => 'profileLabelText',
+                ],
             ])->add('timestamp', IntegerType::class, [
                 'label' => 'Timestamp',
                 'required' => false,
                 'mapped' => false,
+                'attr' => [
+                    'class' => 'form-control-sm',
+                ],
+                'label_attr' => [
+                    'class' => 'profileLabelText',
+                ],
             ]);
 
     }
