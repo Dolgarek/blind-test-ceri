@@ -22,6 +22,7 @@ class UtilisateurController extends AbstractController
     {
         return $this->render('utilisateur/index.html.twig', [
             'utilisateurs' => $utilisateurRepository->findAll(),
+            'user' => $this->getUser(),
         ]);
     }
 
@@ -61,6 +62,7 @@ class UtilisateurController extends AbstractController
         return $this->render('utilisateur/new.html.twig', [
             'utilisateur' => $utilisateur,
             'form' => $form,
+            'user' => $this->getUser(),
         ]);
     }
 
@@ -69,6 +71,7 @@ class UtilisateurController extends AbstractController
     {
         return $this->render('utilisateur/show.html.twig', [
             'utilisateur' => $utilisateur,
+            'user' => $this->getUser(),
         ]);
     }
 
@@ -150,6 +153,7 @@ class UtilisateurController extends AbstractController
         return $this->renderForm('utilisateur/edit.html.twig', [
             'utilisateur' => $utilisateur,
             'form' => $form,
+            'user' => $this->getUser(),
         ]);
     }
 
@@ -186,6 +190,7 @@ class UtilisateurController extends AbstractController
         return $this->renderForm('utilisateur/edit.html.twig', [
             'utilisateur' => $utilisateur,
             'form' => $form,
+            'user' => $this->getUser(),
         ]);
     }
 

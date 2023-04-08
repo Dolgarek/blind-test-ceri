@@ -412,3 +412,55 @@ th {
     margin: 30px;
     margin-left: 10px;
 }
+
+.utilisateursContainer{
+    position: relative;
+    margin: 1em auto; max-width: 1400px; width: 100%;
+}
+
+.tableBigger{
+    width: 1400px;
+}
+
+.miniIntroductionText {
+    font-family: 'Lato-Light';
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    margin:20px;
+    color: #EAE5E1;
+    text-shadow: 2px 4px 4px rgba(	51, 121, 170, 0.6);
+}
+
+.mediumIntroductionText {
+    font-family: 'Lato-Light';
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    margin:20px;
+    color: #EAE5E1;
+    text-shadow: 2px 4px 4px rgba(	51, 121, 170, 0.6);
+}
+
+.formSelectChoice{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    font-family: 'Lato-Light';
+    font-size: 16px;
+    font-weight: 600;
+    margin:10px;
+    border: none;
+    box-sizing: content-box;
+    color: #333333;
+    background: none;
+}
+
+.profileLabelText,
+.formSelectChoice {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  margin-bottom: 0;
+}
