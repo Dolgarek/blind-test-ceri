@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Theme{% endblock %}
+
+{% block body %}
+<style>
+        .example-wrapper { margin: 1em auto; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+    <div class="example-wrapper">
+        <div class='imageBackground'>
+            <div {{react_component('CircleContainerForProfilePictureComponent',{ 'username': user.username, 'id': user.id, 'firstName': user.prenom, 'lastName': user.nom, 'password': user.password ,'imageUrl': user.avatarFilename ? '/uploads/avatars/' ~ user.avatarFileName : 'https://logodix.com/logo/330698.png'}) }}></div>
+            <div class='containerAccueil'>
+                <div class='welcomeText'>Details du thème</div>
+                <div class='tableContainerAnother'>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class='introductionText'>Identifiants</th>
+                                <th class='introductionText'>Nom</th>
+                            </tr>
+                        <tbody>
+                            <tr>
+                                <td class='resultTableText'>{{ theme.id }}</td>
+                                <td class='resultTableText'>{{ theme.nom }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tableContainerAnother">
+                    <p><a href="{{ path('app_theme_index') }}" class='resultTableText'><i class="fa-sharp fa-solid fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Retour vers la liste de thèmes</a></p>
+                    <p><a href="{{ path('app_theme_edit', {'id': theme.id}) }}" class='resultTableText'><i class="fa-solid fa-pen"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Modifier</a></p>
+                    {{ include('theme/_delete_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

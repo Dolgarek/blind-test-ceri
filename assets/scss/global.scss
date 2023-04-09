@@ -1,0 +1,483 @@
+@import "~bootstrap/scss/bootstrap";
+
+@font-face {
+    font-family: 'Coolgumz';
+    src: local('Coolgumz'), url(../fonts/Coolgumz.ttf) format('truetype');
+}
+@font-face {
+    font-family: 'Lato-Light';
+    src: local('Lato-Light'), url(../fonts/Lato-Light.ttf) format('truetype');
+
+}
+
+html {
+  height: 100%;
+}
+
+body {
+    background: linear-gradient(55deg,#8CADDB, #AE8CDB);
+    position: relative;
+    min-height: 98%;
+}
+
+  
+body:before {
+    content: ' ';
+    display: block;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    opacity: 0.2;
+    background-image: url('../images/MusicNote.png');
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: cover;
+  }
+
+ 
+.containerAccueil{
+    position: relative;
+    margin: 1em auto; max-width: 800px; width: 100%;
+   
+}
+.centerContainer{
+    padding-top: 200px;
+   
+}
+
+.containerLogin{
+    position: relative;
+    margin: 1em auto; max-width: 800px; width: 100%;
+   
+}
+.welcomeText {
+    font-family: 'Coolgumz';
+    font-size: 55px;
+    text-align: center;
+    color: #EAE5E1;
+    text-shadow: 2px 4px 4px rgba(	51, 121, 170, 0.6);
+}
+
+.welcomeTextLato {
+    font-family: 'Lato-Light';
+    font-size: 55px;
+    text-align: center;
+    color: #EAE5E1;
+    text-shadow: 2px 4px 4px rgba(	51, 121, 170, 0.6);
+}
+
+
+.loginText{
+    font-family: 'Coolgumz';
+    font-size: 30px;
+    text-align: center;
+    color: #EAE5E1;
+    text-shadow: 2px 4px 4px rgba(	51, 121, 170, 0.6);
+}
+
+.introductionText {
+    font-family: 'Lato-Light';
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    margin:20px;
+    color: #EAE5E1;
+    text-shadow: 2px 4px 4px rgba(	51, 121, 170, 0.6);
+}
+.btn-mybtn{
+    background-color: #333333;
+    color: white;
+    font-family: 'Lato-Light';
+    font-weight: 600;
+    border: 3px solid transparent;
+    outline: none;
+    transition: background-color 0.3s ease-out;
+  }
+  
+.btn-mybtn:hover {
+    background-color: #EAE5E1;
+    border: 3px solid #333333;
+    color: #333333;
+}
+.btn-xxl {
+    padding: 1.5rem 2.5rem;
+    font-size: 1.2rem;
+  }
+
+.positionButtonCenter{
+    text-align: center;
+    padding: 1em;
+}
+.positionButtonDownLeft{
+    position: relative;
+    height: 300px; /* hauteur arbitraire pour l'exemple */
+}
+.btn-mybtnDeconnexion{
+    background-color: #E55055;
+    color: white;
+    font-family: 'Lato-Light';
+    font-weight: 600;
+    border: 3px solid transparent;
+    outline: none;
+    transition: background-color 0.3s ease-out;
+}
+.btn-mybtnDeconnexion:hover {
+    background-color: #EAE5E1;
+    border: 3px solid #E55055;
+    color: #E55055;
+}
+
+.circle-image-container {
+    position: relative;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+  
+.circle-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.modal-content {
+    background: linear-gradient(55deg,#8CADDB, #AE8CDB);
+  }
+
+.form-control-sm{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    font-family: 'Lato-Light';
+    font-size: 16px;
+    font-weight: 600;
+    margin:10px;
+    border: none;
+    box-sizing: content-box;
+    border-bottom: 2px solid #EAE5E1;
+    color: #EAE5E1;
+    background: none;
+}
+
+.profileLabelText {
+    font-family: 'Lato-Light';
+    font-size: 20px;
+    font-weight: 600;
+    margin:10px;
+    color: #EAE5E1;
+    text-shadow: 2px 4px 4px rgba(	51, 121, 170, 0.6);
+    width: 25%;
+}
+
+.form-control{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    font-family: 'Lato-Light';
+    font-size: 16px;
+    font-weight: 600;
+    margin:10px;
+    border: none;
+    box-sizing: content-box;
+    border-bottom: 2px solid #333333;
+    color: #333333;
+    background: none;
+}
+
+.form-control-custom {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+}
+
+.loginLabelText {
+    font-family: 'Lato-Light';
+    font-size: 20px;
+    font-weight: 600;
+    margin:10px;
+    color: #333333;
+    text-shadow: 2px 4px 4px rgba(	51, 121, 170, 0.6);
+    width: 25%;
+}
+
+.profileLabelText,
+.form-control-sm {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  margin-bottom: 0;
+}
+
+.form-group-sm{
+    align-items: center;
+    padding: .5em;
+}
+
+.loginLabelText,
+.form-control {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  margin-bottom: 0;
+}
+
+.form-group{
+    align-items: center;
+    padding: .5em;
+}
+
+.form-control-sm[readonly] {
+    border-bottom: none;
+}
+  
+.form-control-sm:not([readonly]):focus {
+    background: none;
+    outline: none;
+}
+
+.form-control-sm:focus {
+    outline: none;
+  }
+
+.form-control:focus {
+    background: none;
+    outline: none;
+}
+  
+
+.loginCard{
+   position: relative;
+   text-align: center;
+   display: inline;
+   justify-content: center;
+   align-items: center;
+   
+   
+}
+
+.mx-auto{
+  width: 60%;
+  margin-left: 50%;
+  margin-right: 50%;
+  background: linear-gradient(55deg,#EAD0AF, #EAE5E1);
+  margin-top: 50px;
+  
+}
+
+.inscriptionLabelText{
+   padding-top: 15px;
+   font-size: 15px;
+
+}
+
+.mybtn-login{
+    padding-top: 20px;
+}
+.passwordLabelText{
+    padding-top: 7px;
+}
+
+.mybtn-inscription{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.timer-wrapper {
+    display: flex;
+    justify-content: center;
+    padding-top: 120px;
+    
+  }
+.answer-wrapper{
+    padding-top: 100px;
+}
+
+.timer {
+    font-family: 'Lato-Light';
+    font-size: 20px;
+    font-weight: 600;
+    color: #EAE5E1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-shadow: 2px 4px 4px rgba(	51, 121, 170, 0.6);
+
+
+}
+  
+.value {
+    font-size: 40px;
+}
+.resultTableText {
+    font-family: 'Lato-Light';
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    margin:20px;
+    color: #EAE5E1;
+    text-shadow: 2px 4px 4px rgba(	51, 121, 170, 0.6);
+}
+.tableContainer {
+    padding-bottom: 300px;
+}
+
+.tableContainerAnother {
+    padding-bottom: 50px;
+}
+.tableContainerAnotherBigger {
+    padding-bottom: 200px;
+}
+a {
+    text-decoration: none;
+  }
+.createNewRecordLinkPadding{
+    font-family: 'Lato-Light';
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    margin:20px;
+    color: #EAE5E1;
+    text-shadow: 2px 4px 4px rgba(	51, 121, 170, 0.6);
+}
+img{
+    position: absolute;
+    width: 19%;
+    bottom: 1.3rem;
+}
+table {
+    border: 3px solid #EAE5E1;
+    width: 800px;
+  }
+.tableBig{
+    width: 1200px;
+}
+.detailsMusiqueContainer{
+    position: relative;
+    margin: 1em auto; max-width: 1200px; width: 100%;
+}
+
+th {
+    border-bottom: none;
+  }
+
+  td {
+    text-align: center;
+    justify-content: center;
+    vertical-align: middle;
+    position: relative;
+    padding: 25px;
+  }
+
+  .child {
+    width: 800px;
+    margin: 0 auto;
+  }
+
+  .formSelectDate{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    font-family: 'Lato-Light';
+    font-size: 16px;
+    font-weight: 600;
+    margin:10px;
+    border: none;
+    box-sizing: content-box;
+    color: #EAE5E1;
+    background: none;
+}
+
+.profileLabelText,
+.formSelectDate {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  margin-bottom: 0;
+}
+
+.littleContainer{
+    margin: 30px;
+    margin-left: 10px;
+}
+
+.biggerContainer{
+    margin: 50px;
+    margin-left: 10px;
+    padding-bottom: 200px;
+}
+
+.utilisateursContainer{
+    position: relative;
+    margin: 1em auto; max-width: 1400px; width: 100%;
+}
+
+.tableBigger{
+    width: 1400px;
+}
+
+.miniIntroductionText {
+    font-family: 'Lato-Light';
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    margin:20px;
+    color: #EAE5E1;
+    text-shadow: 2px 4px 4px rgba(	51, 121, 170, 0.6);
+}
+
+.mediumIntroductionText {
+    font-family: 'Lato-Light';
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    margin:20px;
+    color: #EAE5E1;
+    text-shadow: 2px 4px 4px rgba(	51, 121, 170, 0.6);
+}
+
+.formSelectChoice{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    font-family: 'Lato-Light';
+    font-size: 16px;
+    font-weight: 600;
+    margin:10px;
+    border: none;
+    box-sizing: content-box;
+    color: #333333;
+    background: none;
+}
+
+.profileLabelText,
+.formSelectChoice {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  margin-bottom: 0;
+}

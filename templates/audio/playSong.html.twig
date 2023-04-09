@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Play{% endblock %}
+
+{% block body %}
+    <audio id="audioPlayer" controls>
+        <source id="audioSource" src="/api/playSong/2" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <script>
+        const audioPlayer = document.getElementById('audioPlayer');
+        const audioSource = document.getElementById('audioSource');
+        const urlParams = new URLSearchParams(window.location.search);
+        const timestamp = parseFloat(urlParams.get('timestamp')) || 0.01; // Utiliser 0 comme valeur par défaut
+
+        audioPlayer.currentTime = timestamp; // Définir le point de départ de la lecture en fonction du timestamp
+        audioPlayer.volume = timestamp; // Ajustez le volume au niveau souhaité
+
+        // Chargez l'audio et commencez la lecture
+        audioPlayer.load();
+        audioPlayer.play();
+
+        setTimeout(() => {
+            const fadeDuration = 1000; // Durée de la baisse de volume en millisecondes
+            const fadeInterval = 100; // Intervalle entre les changements de volume en millisecondes
+            const fadeStep = audioPlayer.volume / (fadeDuration / fadeInterval); // Calcul de l'incrément de volume à chaque intervalle
+
+            const fadeOutInterval = setInterval(() => {
+                audioPlayer.volume -= 0.001;
+
+                if (audioPlayer.volume <= 0) {
+                    clearInterval(fadeOutInterval);
+                    setTimeout(() => {
+                        audioPlayer.pause();
+                        audioSource.src = '/api/playSong/3'; // Changez la source de l'audio
+                        audioPlayer.load();
+                        audioPlayer.volume = 0.01; // Réinitialiser le volume
+                        audioPlayer.currentTime = timestamp;
+                        audioPlayer.play();
+                    }, 4000); // Attendre 4 secondes
+                }
+            }, fadeInterval);
+        }, 10000);
+    </script>
+{% endblock %}

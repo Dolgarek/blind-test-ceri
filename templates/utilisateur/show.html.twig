@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateur{% endblock %}
+
+{% block body %}
+<style>
+        .example-wrapper { margin: 1em auto; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+    <div class="example-wrapper">
+        <div class='imageBackground'>
+            <div {{react_component('CircleContainerForProfilePictureComponent',{ 'username': user.username, 'id': user.id, 'firstName': user.prenom, 'lastName': user.nom, 'password': user.password ,'imageUrl': user.avatarFilename ? '/uploads/avatars/' ~ user.avatarFileName : 'https://logodix.com/logo/330698.png'}) }}></div>
+            <div class='utilisateursContainer'>
+                <div class='welcomeText'>Détails de l'utilisateur</div>
+                <div class='tableContainerAnother'>
+                    <table class="tableBigger">
+                        <thead>
+                            <tr>
+                                <th class='mediumIntroductionText'>Identifiants</th>
+                                <th class='mediumIntroductionText'>Nom d'utilisateur</th>
+                                <th class='mediumIntroductionText'>Roles</th>
+                                <th class='mediumIntroductionText'>Mot de passe</th>
+                                <th class='mediumIntroductionText'>Nom</th>
+                                <th class='mediumIntroductionText'>Prénom</th>
+                                <th class='mediumIntroductionText'>Date de création</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class='miniIntroductionText'>{{ utilisateur.id }}</td>
+                                <td class='miniIntroductionText'>{{ utilisateur.username }}</td>
+                                <td class='miniIntroductionText'>{{ utilisateur.roles ? utilisateur.roles|json_encode : '' }}</td>
+                                <td class='miniIntroductionText'>{{ utilisateur.password }}</td>
+                                <td class='miniIntroductionText'>{{ utilisateur.nom }}</td>
+                                <td class='miniIntroductionText'>{{ utilisateur.prenom }}</td>
+                                <td class='miniIntroductionText'>{{ utilisateur.createdAt ? utilisateur.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tableContainerAnother">
+                    <p><a href="{{ path('app_utilisateur_index') }}" class='resultTableText'><i class="fa-sharp fa-solid fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Retour vers la liste d'utilisateurs</a></p>
+                    <p><a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}" class='resultTableText'><i class="fa-solid fa-pen"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Modifier</a></p>
+                    {{ include('utilisateur/_delete_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
