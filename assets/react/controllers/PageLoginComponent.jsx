@@ -10,7 +10,7 @@ function LoginForm() {
 
   return (
     <div>
-      <div className='welcomeText'>Blindtest !</div>
+      <div className='welcomeText'>Melody Match !</div>
       <div className='loginCard'>
         <Card className='mx-auto'>
           <Card.Body>

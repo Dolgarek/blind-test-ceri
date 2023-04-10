@@ -15,7 +15,7 @@ export default function CircleContainerForProfilePictureComponent(props) {
     return (
         <>
         <div className="circle-image-container" title="Voir le profil">
-            <a href="/" class='createNewRecordLinkPadding'><i class="fa-solid fa-house fa-2xl"></i>&nbsp;&nbsp;</a>
+            <a href="/" className='createNewRecordLinkPadding'><i className="fa-solid fa-house fa-2xl"></i>&nbsp;&nbsp;</a>
             <div className="circle-image" onClick={handleModalOpen} style={{ backgroundImage: `url(${props.imageUrl})` }}></div>
         </div>
 
