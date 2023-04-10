@@ -44,7 +44,7 @@ class ThemeController extends AbstractController
             }
         }
 
-        return $this->renderForm('theme/new.html.twig', [
+        return $this->render('theme/new.html.twig', [
             'theme' => $theme,
             'form' => $form,
             'user' => $this->getUser(),

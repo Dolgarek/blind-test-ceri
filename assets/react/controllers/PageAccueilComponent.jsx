@@ -44,10 +44,13 @@ export default function (props) {
                 <div className='positionButtonCenter'>
                     <Button href="/musique" variant="mybtn" size="xxl">Importer des musiques</Button>
                 </div>
+                <div className='positionButtonCenter'>
+                    <Button href="/theme" variant="mybtn" size="xxl">Gérer les thèmes</Button>
+                </div>
             </div>
-            <div className='positionButtonDownLeft'>
-                <Button href="/logout" variant="mybtnDeconnexion" size="xxl">Déconnexion <FaSignOutAlt /></Button>
-            </div>
+            {props.role === 'ROLE_ADMIN' ? (<div className='positionButtonDownLeft'>
+                <Button href="/logout" variant="mybtnDeconnexion" size="xxl">Déconnexion <FaSignOutAlt/></Button>
+            </div>) : (<div></div>)}
         </div>
     )
 }
