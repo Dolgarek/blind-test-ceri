@@ -10,10 +10,10 @@ export default function (props) {
     // var IdFromURL = params.get('music');
     // var musics = JSON.parse(IdFromURL); 
     
-    const musics = JSON.parse(props.music)
+    const musics = props.music
 
     useEffect(() => {
-        console.log(JSON.parse(props.music))
+        console.log(props.music)
     }, [])
 
     return (

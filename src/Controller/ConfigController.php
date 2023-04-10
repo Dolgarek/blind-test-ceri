@@ -2,12 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\CurrentAnswer;
 use App\Form\ConfigPartieType;
+use App\Repository\CurrentAnswerRepository;
 use App\Repository\MusiqueInfoRepository;
 use App\Repository\MusiqueRepository;
 use App\Repository\ThemeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -90,6 +93,29 @@ class ConfigController extends AbstractController
             'form' => $form,
             'user' => $this->getUser(),
         ]);
-}
+    }
+
+    #[Route('/config/answer', name: 'app_config_answer', methods: ['POST'])]
+    public function postAnswer(Request $request, CurrentAnswerRepository $currentAnswerRepository): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        $exist = $currentAnswerRepository->findOneBy(['currentId' => $data['index'], 'ssid' => $data['ssid']]);
+        //dump($exist, $exist2);
+        if ($exist) {
+            $exist->setAnswer($data['answer']);
+            $this->entityManager->persist($exist);
+        } else {
+            $currentAnswer = new CurrentAnswer();
+            $currentAnswer->setCurrentId($data['index']);
+            $currentAnswer->setSsid($data['ssid']);
+            $currentAnswer->setAnswer($data['answer']);
+            $currentAnswer->setTitre($data['titre']);
+            $currentAnswer->setAnswerCorrect($data['titre'] == $data['answer']);
+            $this->entityManager->persist($currentAnswer);
+        }
+        $this->entityManager->flush();
+        dump($request, $request->request->all(), $request->request->get('answer'), $data);
+        return $this->json(['success' => true]);
+    }
 
 }
